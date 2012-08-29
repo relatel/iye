@@ -9,8 +9,7 @@ class I18nYamlEditor
   def self.setup_database
     self.db = Sequel.sqlite
     self.db.create_table :keys do
-      primary_key :id
-      String :key
+      String :key, :primary_key => true
       String :file
       String :locale
       String :text
