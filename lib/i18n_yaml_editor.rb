@@ -84,6 +84,7 @@ class I18nYamlEditor
     files.each {|file|
       yaml = YAML.load_file(file)
       load_yaml_to_database(yaml, file)
+      create_missing_keys
     }
   end
 
