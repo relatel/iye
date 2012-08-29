@@ -36,9 +36,11 @@ class I18nYamlEditor
       yaml = YAML.load_file(file)
       keys = flatten_hash(yaml)
       keys.each {|key, text|
+        locale = key.split(".").first
         db[:keys].insert(
           :key => key,
           :file => file,
+          :locale => locale,
           :text => text
         )
       }
