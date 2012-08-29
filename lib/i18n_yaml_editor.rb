@@ -67,10 +67,13 @@ class I18nYamlEditor
     keys = self.db[:keys].group_and_count(:key).having("count <> ?", locales.size).all
     keys.each {|row|
       key = row[:key]
-      missing = locales -
-        self.db[:keys].where(:key => key).select(:locale).map {|r| r[:locale]}
+      existing = self.db[:keys].where(:key => key)
+      missing = locales - existing.map {|r| r[:locale]}
       missing.each {|locale|
-        self.db[:keys].insert(:locale => locale, :key => key)
+        file = existing.first[:file].split(".")
+        file[-2] = locale
+        file = file.join(".")
+        self.db[:keys].insert(:locale => locale, :key => key, :file => file)
       }
     }
   end

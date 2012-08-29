@@ -97,11 +97,11 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
     keys.insert(:locale => "da", :key => "session.login")
     keys.insert(:locale => "en", :key => "session.login")
 
-    keys.insert(:locale => "da", :key => "session.logout")
+    keys.insert(:locale => "da", :key => "session.logout", :file => "/tmp/session.da.yml")
 
     IYE.create_missing_keys
 
-    assert_equal 1, keys.where(:locale => "en", :key => "session.logout").count
+    assert_equal 1, keys.where(:locale => "en", :key => "session.logout", :file => "/tmp/session.en.yml").count
   end
 
   def test_dump_to_files
