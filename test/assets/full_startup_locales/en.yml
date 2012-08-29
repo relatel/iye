@@ -1,2 +1,3 @@
-en:
-  app_name: Translator
+---
+:en:
+  :app_name: Translator

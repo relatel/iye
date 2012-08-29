@@ -1,4 +1,5 @@
-da:
-  session:
-    login: "Log ind"
-    logout: "Log ud"
+---
+:da:
+  :session:
+    :login: Log ind
+    :logout: Log ud

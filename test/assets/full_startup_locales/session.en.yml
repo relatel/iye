@@ -1,4 +1,5 @@
-en:
-  session:
-    login: "Log in"
-    logout: "Log out"
+---
+:en:
+  :session:
+    :login: Log in
+    :logout: Log out

@@ -4,9 +4,8 @@ require "minitest/autorun"
 require "i18n_yaml_editor"
 
 class TestI18nYamlEditor < MiniTest::Unit::TestCase
-  def test_setup_database
-    IYE.setup_database
-    assert IYE.db
+  def setup
+    IYE.keys.clear
   end
 
   def test_flatten_hash_single_level
@@ -34,13 +33,6 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
     assert_equal(output, IYE.flatten_hash(input))
   end
 
-  def test_full_startup
-    IYE.startup("test/assets/full_startup_locales")
-    keys = IYE.db[:keys]
-
-    assert_equal 6, keys.count
-  end
-
   def test_nest_hash
     input = {
       "da.session.login" => "Log ind",
@@ -62,20 +54,17 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
 
   def test_full_startup
     IYE.startup("test/assets/full_startup_locales")
-    keys = IYE.db[:keys]
 
-    assert_equal 6, keys.count
+    assert_equal 6, IYE.keys.size
   end
 
-  def test_load_yaml_to_database
-    IYE.setup_database
-
+  def test_load_yaml_to_datastore
     input = {da: {session: {login: "Log ind"}}}
     IYE.load_yaml_to_database(input)
 
-    keys = IYE.db[:keys]
+    keys = IYE.keys
 
-    assert_equal 1, keys.count
+    assert_equal 1, keys.size
     key = keys.first
     assert_equal "da", key[:locale]
     assert_equal "session.login", key[:key]
@@ -83,37 +72,34 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
   end
 
   def test_locales
-    IYE.setup_database
-    keys = IYE.db[:keys]
-    keys.insert(:locale => "da")
-    keys.insert(:locale => "en")
+    keys = IYE.keys
+    keys << {locale: "da"}
+    keys << {locale: "en"}
 
     assert_equal(%w(da en).sort, IYE.locales.sort)
   end
 
   def test_create_missing_keys
-    IYE.setup_database
-    keys = IYE.db[:keys]
-    keys.insert(:locale => "da", :key => "session.login")
-    keys.insert(:locale => "en", :key => "session.login")
+    keys = IYE.keys
+    keys << {locale: "da", key: "session.login"}
+    keys << {locale: "en", key: "session.login"}
 
-    keys.insert(:locale => "da", :key => "session.logout", :file => "/tmp/session.da.yml")
+    keys << {locale: "da", key: "session.logout", file: "/tmp/session.da.yml"}
 
     IYE.create_missing_keys
 
-    assert_equal 1, keys.where(:locale => "en", :key => "session.logout", :file => "/tmp/session.en.yml").count
+    assert keys.include?(locale: "da", key: "session.logout", file: "/tmp/session.da.yml")
   end
 
   def test_dump_to_files
-    IYE.setup_database
-    keys = IYE.db[:keys]
+    keys = IYE.keys
 
     require "tmpdir"
     Dir.mktmpdir {|dir|
-      keys.insert(:key => "app_name", :text => "Oversætter", :file => "#{dir}/da.yml", :locale => "da")
-      keys.insert(:key => "session.login", :text => "Log ind", :file => "#{dir}/session.da.yml", :locale => "da")
-      keys.insert(:key => "session.logout", :text => "Log ud", :file => "#{dir}/session.da.yml", :locale => "da")
-      keys.insert(:key => "session.login", :text => "Log in", :file => "#{dir}/session.en.yml", :locale => "en")
+      keys << {:key => "app_name", :text => "Oversætter", :file => "#{dir}/da.yml", :locale => "da"}
+      keys << {:key => "session.login", :text => "Log ind", :file => "#{dir}/session.da.yml", :locale => "da"}
+      keys << {:key => "session.logout", :text => "Log ud", :file => "#{dir}/session.da.yml", :locale => "da"}
+      keys << {:key => "session.login", :text => "Log in", :file => "#{dir}/session.en.yml", :locale => "en"}
 
       IYE.dump_yaml
 
