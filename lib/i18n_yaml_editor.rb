@@ -62,6 +62,19 @@ class I18nYamlEditor
       }
     }
   end
+
+  def self.dump_yaml
+    keys = self.db[:keys]
+    files = keys.all.group_by {|key| key[:file]}
+    files.each {|file, keys|
+      res = {}
+      keys.each {|key|
+        res[key[:key]] = key[:text]
+      }
+      yaml = nest_hash(res)
+      File.open(file, "w") {|f| YAML.dump(yaml, f)}
+    }
+  end
 end
 
 IYE = I18nYamlEditor

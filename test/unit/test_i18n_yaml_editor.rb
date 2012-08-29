@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "minitest/autorun"
 require "i18n_yaml_editor"
 
@@ -63,5 +65,28 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
     keys = IYE.db[:keys]
 
     assert_equal 6, keys.count
+  end
+
+  def test_dump_to_files
+    IYE.setup_database
+    keys = IYE.db[:keys]
+
+    require "tmpdir"
+    Dir.mktmpdir {|dir|
+      keys.insert(:key => "da.app_name", :text => "Oversætter", :file => "#{dir}/da.yml")
+      keys.insert(:key => "da.session.login", :text => "Log ind", :file => "#{dir}/session.da.yml")
+      keys.insert(:key => "da.session.logout", :text => "Log ud", :file => "#{dir}/session.da.yml")
+      keys.insert(:key => "en.session.login", :text => "Log in", :file => "#{dir}/session.en.yml")
+
+      IYE.dump_yaml
+
+      da = YAML.load_file("#{dir}/da.yml")
+      da_session = YAML.load_file("#{dir}/session.da.yml")
+      en_session = YAML.load_file("#{dir}/session.en.yml")
+
+      assert_equal({da: {app_name: "Oversætter"}}, da)
+      assert_equal({da: {session: {login: "Log ind", logout: "Log ud"}}}, da_session)
+      assert_equal({en: {session: {login: "Log in"}}}, en_session)
+    }
   end
 end
