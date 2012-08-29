@@ -29,6 +29,22 @@ class I18nYamlEditor
     tree
   end
 
+  def self.nest_hash hash
+    result = {}
+    hash.each {|key, value|
+      sub_result = result
+      keys = key.split(".")
+      keys.each {|k|
+        if keys.last == k
+          sub_result[k.to_sym] = value
+        else
+          sub_result = (sub_result[k.to_sym] ||= {})
+        end
+      }
+    }
+    result
+  end
+
   def self.startup path
     setup_database
     files = Dir[path + "/**/*.yml"]
