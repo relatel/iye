@@ -88,10 +88,10 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
 
     require "tmpdir"
     Dir.mktmpdir {|dir|
-      keys.insert(:key => "da.app_name", :text => "Oversætter", :file => "#{dir}/da.yml")
-      keys.insert(:key => "da.session.login", :text => "Log ind", :file => "#{dir}/session.da.yml")
-      keys.insert(:key => "da.session.logout", :text => "Log ud", :file => "#{dir}/session.da.yml")
-      keys.insert(:key => "en.session.login", :text => "Log in", :file => "#{dir}/session.en.yml")
+      keys.insert(:key => "app_name", :text => "Oversætter", :file => "#{dir}/da.yml", :locale => "da")
+      keys.insert(:key => "session.login", :text => "Log ind", :file => "#{dir}/session.da.yml", :locale => "da")
+      keys.insert(:key => "session.logout", :text => "Log ud", :file => "#{dir}/session.da.yml", :locale => "da")
+      keys.insert(:key => "session.login", :text => "Log in", :file => "#{dir}/session.en.yml", :locale => "en")
 
       IYE.dump_yaml
 

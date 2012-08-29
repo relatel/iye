@@ -73,7 +73,8 @@ class I18nYamlEditor
     files.each {|file, keys|
       res = {}
       keys.each {|key|
-        res[key[:key]] = key[:text]
+        full_key = key.values_at(:locale, :key).join(".")
+        res[full_key] = key[:text]
       }
       yaml = nest_hash(res)
       File.open(file, "w") {|f| YAML.dump(yaml, f)}
