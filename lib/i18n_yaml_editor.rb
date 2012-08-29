@@ -17,12 +17,6 @@ class I18nYamlEditor
     end
   end
 
-  def self.load_yaml
-    files = Dir["locales/**/*.yml"]
-    keys = {}
-    YAML.load_file(files.first)
-  end
-
   def self.flatten_hash hash, namespace=[], tree={}
     hash.each {|key, value|
       child_ns = namespace.dup << key
@@ -33,6 +27,22 @@ class I18nYamlEditor
       end
     }
     tree
+  end
+
+  def self.startup path
+    setup_database
+    files = Dir[path + "/**/*.yml"]
+    files.each {|file|
+      yaml = YAML.load_file(file)
+      keys = flatten_hash(yaml)
+      keys.each {|key, text|
+        db[:keys].insert(
+          :key => key,
+          :file => file,
+          :text => text
+        )
+      }
+    }
   end
 end
 

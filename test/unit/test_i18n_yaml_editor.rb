@@ -32,9 +32,10 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
     assert_equal(output, IYE.flatten_hash(input))
   end
 
-  def test_load_yaml
-    IYE.setup_database
-    keys = I18nYamlEditor.load_yaml
-    #assert_equal 1, keys
+  def test_full_startup
+    IYE.startup("test/assets/full_startup_locales")
+    keys = IYE.db[:keys]
+
+    assert_equal 6, keys.count
   end
 end
