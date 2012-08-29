@@ -7,7 +7,7 @@ class I18nYamlEditor::Web < Cuba
 
   define do
     on get do
-      keys = IYE.db[:keys].all.group_by {|r| r[:key]}
+      keys = IYE.keys.sort_by {|k| k[:key]}.group_by {|k| k[:key]}
       res.write view("translations.html", keys: keys)
     end
   end
