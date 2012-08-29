@@ -1,0 +1,10 @@
+<% keys.each do |key, translations| %>
+  <h2><%= key %></h2>
+  <ul>
+    <% translations.each do |translation| %>
+      <li>
+        <em><%= translation[:locale] %>:</em> <%= translation[:text] %> <i><%= translation[:file] %></i>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
