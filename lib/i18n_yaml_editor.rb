@@ -9,7 +9,8 @@ class I18nYamlEditor
   def self.setup_database
     self.db = Sequel.sqlite
     self.db.create_table :keys do
-      String :key, :primary_key => true
+      primary_key :id
+      String :key
       String :file
       String :locale
       String :text
@@ -44,21 +45,25 @@ class I18nYamlEditor
     result
   end
 
+  def self.load_yaml_to_database yaml, file=nil
+    keys = flatten_hash(yaml)
+    keys.each {|full_key, text|
+      _, locale, key = full_key.match(/^(.*?)\.(.*)/).to_a
+      db[:keys].insert(
+        :key => key,
+        :file => file,
+        :locale => locale,
+        :text => text
+      )
+    }
+  end
+
   def self.startup path
     setup_database
     files = Dir[path + "/**/*.yml"]
     files.each {|file|
       yaml = YAML.load_file(file)
-      keys = flatten_hash(yaml)
-      keys.each {|key, text|
-        locale = key.split(".").first
-        db[:keys].insert(
-          :key => key,
-          :file => file,
-          :locale => locale,
-          :text => text
-        )
-      }
+      load_yaml_to_database(yaml, file)
     }
   end
 

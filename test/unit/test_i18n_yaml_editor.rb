@@ -67,6 +67,21 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
     assert_equal 6, keys.count
   end
 
+  def test_load_yaml_to_database
+    IYE.setup_database
+
+    input = {da: {session: {login: "Log ind"}}}
+    IYE.load_yaml_to_database(input)
+
+    keys = IYE.db[:keys]
+
+    assert_equal 1, keys.count
+    key = keys.first
+    assert_equal "da", key[:locale]
+    assert_equal "session.login", key[:key]
+    assert_equal "Log ind", key[:text]
+  end
+
   def test_dump_to_files
     IYE.setup_database
     keys = IYE.db[:keys]
