@@ -82,6 +82,15 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
     assert_equal "Log ind", key[:text]
   end
 
+  def test_locales
+    IYE.setup_database
+    keys = IYE.db[:keys]
+    keys.insert(:locale => "da")
+    keys.insert(:locale => "en")
+
+    assert_equal(%w(da en).sort, IYE.locales.sort)
+  end
+
   def test_dump_to_files
     IYE.setup_database
     keys = IYE.db[:keys]

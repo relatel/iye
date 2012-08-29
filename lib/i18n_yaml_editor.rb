@@ -58,6 +58,10 @@ class I18nYamlEditor
     }
   end
 
+  def self.locales
+    self.db[:keys].distinct.select(:locale).map {|r| r[:locale]}
+  end
+
   def self.startup path
     setup_database
     files = Dir[path + "/**/*.yml"]
