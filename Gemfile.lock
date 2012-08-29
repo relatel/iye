@@ -1,0 +1,12 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    minitest (3.3.0)
+    sequel (3.38.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  minitest (= 3.3.0)
+  sequel (= 3.38.0)
