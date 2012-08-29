@@ -62,6 +62,19 @@ class I18nYamlEditor
     self.db[:keys].distinct.select(:locale).map {|r| r[:locale]}
   end
 
+  def self.create_missing_keys
+    locales = self.locales
+    keys = self.db[:keys].group_and_count(:key).having("count <> ?", locales.size).all
+    keys.each {|row|
+      key = row[:key]
+      missing = locales -
+        self.db[:keys].where(:key => key).select(:locale).map {|r| r[:locale]}
+      missing.each {|locale|
+        self.db[:keys].insert(:locale => locale, :key => key)
+      }
+    }
+  end
+
   def self.startup path
     setup_database
     files = Dir[path + "/**/*.yml"]

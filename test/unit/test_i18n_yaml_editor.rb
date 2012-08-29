@@ -91,6 +91,19 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
     assert_equal(%w(da en).sort, IYE.locales.sort)
   end
 
+  def test_create_missing_keys
+    IYE.setup_database
+    keys = IYE.db[:keys]
+    keys.insert(:locale => "da", :key => "session.login")
+    keys.insert(:locale => "en", :key => "session.login")
+
+    keys.insert(:locale => "da", :key => "session.logout")
+
+    IYE.create_missing_keys
+
+    assert_equal 1, keys.where(:locale => "en", :key => "session.logout").count
+  end
+
   def test_dump_to_files
     IYE.setup_database
     keys = IYE.db[:keys]
