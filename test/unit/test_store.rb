@@ -83,6 +83,22 @@ class TestStore < MiniTest::Unit::TestCase
     assert_nil key.text
   end
 
+  def test_create_missing_keys_in_top_level_file
+    store = Store.new(
+      Key.new(locale: "da", key: "app_name"),
+      Key.new(locale: "en", key: "app_name"),
+
+      Key.new(locale: "da", key: "about", text: "Om os", file: "/tmp/da.yml")
+    )
+
+    store.create_missing_keys
+
+    key = store.find_key(locale: "en", key: "about")
+
+    assert key
+    assert_equal "/tmp/en.yml", key.file
+  end
+
   def test_from_yaml
     input = {
       da: {

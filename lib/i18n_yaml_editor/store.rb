@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require "set"
+require "pathname"
 
 require "i18n_yaml_editor/transformation"
 require "i18n_yaml_editor/key"
@@ -56,10 +57,13 @@ module I18nYamlEditor
         existing_translations = self.keys.select {|k| k.key == key}
         missing_translations = self.locales - existing_translations.map(&:locale)
         missing_translations.each {|locale|
-          file = existing_translations.first.file.split(".")
+          path = Pathname.new(existing_translations.first.file)
+          dirs, file = path.split
+          file = file.to_s.split(".")
           file[-2] = locale
           file = file.join(".")
-          new_key = Key.new(:locale => locale, :key => key, :file => file, :text => nil)
+          path = dirs.join(file).to_s
+          new_key = Key.new(:locale => locale, :key => key, :file => path, :text => nil)
           self.keys.add(new_key)
         }
       }
