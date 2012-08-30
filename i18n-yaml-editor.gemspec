@@ -7,6 +7,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/firmafon/i18n-yaml-editor"
   s.description = "I18n Yaml Editor"
   s.authors  = ["Harry Vangberg"]
+  s.executables << "iye"
   s.files    = [
     "README.md",
     "Rakefile",
