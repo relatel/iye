@@ -84,6 +84,24 @@ class TestStore < MiniTest::Unit::TestCase
     assert store.key_complete?("session.login")
   end
 
+  def test_category_complete_with_missing_translations
+    store = Store.new(
+      Key.new(:key => "session.login", :locale => "en", :text => "Log in"),
+      Key.new(:key => "session.login", :locale => "da")
+    )
+
+    assert_equal false, store.category_complete?("session")
+  end
+
+  def test_category_complete_with_all_translations
+    store = Store.new(
+      Key.new(:key => "session.login", :locale => "en", :text => "Log in"),
+      Key.new(:key => "session.login", :locale => "da", :text => "Log ind")
+    )
+
+    assert store.category_complete?("session")
+  end
+
   def test_create_missing_keys
     store = Store.new(
       Key.new(locale: "da", key: "session.login"),

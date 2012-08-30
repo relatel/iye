@@ -64,6 +64,11 @@ module I18nYamlEditor
       keys.all? {|k| k.text.to_s !~ /\A\s*\z/}
     end
 
+    def category_complete? category
+      keys = self.filter_keys(:key => /^#{category}\./)
+      keys.all? {|k| key_complete?(k.key)}
+    end
+
     def create_missing_keys
       unique_keys = self.keys.map(&:key).uniq
       unique_keys.each {|key|
