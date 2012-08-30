@@ -26,6 +26,10 @@ class TestStore < MiniTest::Unit::TestCase
     assert_equal %w(app_name session).sort, result.sort
   end
 
+  def test_locales
+    assert_equal(%w(da en).sort, store_with_keys.locales.sort)
+  end
+
   def test_find_key
     result = store_with_keys.find_key(:key => "session.login", :locale => "da")
 
@@ -53,9 +57,9 @@ class TestStore < MiniTest::Unit::TestCase
 
     assert_equal 1, store.keys.size
     key = store.keys.first
-    assert_equal "da", key[:locale]
-    assert_equal "session.login", key[:key]
-    assert_equal "Log ind", key[:text]
+    assert_equal "da", key.locale
+    assert_equal "session.login", key.key
+    assert_equal "Log ind", key.text
   end
 
   def test_to_yaml

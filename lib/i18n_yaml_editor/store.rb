@@ -19,6 +19,10 @@ module I18nYamlEditor
       self.keys.map {|k| k.key.split(".").first}.uniq
     end
 
+    def locales
+      self.keys.map(&:locale).uniq
+    end
+
     def find_key params
       self.keys.detect {|key|
         params.all? {|k,v| key.send(k) == v}
@@ -33,13 +37,9 @@ module I18nYamlEditor
     def from_yaml yaml, file=nil
       keys = IYE.flatten_hash(yaml)
       keys.each {|full_key, text|
-        _, locale, key = full_key.match(/^(.*?)\.(.*)/).to_a
-        self.keys.add(
-          :key => key,
-          :file => file,
-          :locale => locale,
-          :text => text
-        )
+        _, locale, key_name = full_key.match(/^(.*?)\.(.*)/).to_a
+        key = Key.new(:key => key_name, :file => file, :locale => locale, :text => text)
+        self.keys.add(key)
       }
     end
 
