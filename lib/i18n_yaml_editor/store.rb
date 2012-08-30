@@ -4,8 +4,9 @@ require "set"
 
 module I18nYamlEditor
   class Store
-    def initialize
-      @keys = Set.new
+    def initialize *new_keys
+      self.keys = Set.new
+      new_keys.each {|key| self.keys.add(key)}
     end
 
     attr_accessor :keys

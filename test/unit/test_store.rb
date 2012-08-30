@@ -4,13 +4,12 @@ require "test_helper"
 
 class TestStore < MiniTest::Unit::TestCase
   def setup
-    @store = IYE::Store.new
-    @store.keys.replace([
+    @store = IYE::Store.new(
       IYE::Key.new(:key => "session.login", :locale => "da", :text => "Log ind", :file => "/tmp/session.da.yml"),
       IYE::Key.new(:key => "session.logout", :locale => "da", :text => "Log ud", :file => "/tmp/session.da.yml"),
       IYE::Key.new(:key => "session.login", :locale => "en", :text => "Sign in", :file => "/tmp/session.en.yml"),
       IYE::Key.new(:key => "app_name", :locale => "da", :text => "Oversætter", :file => "/tmp/da.yml")
-    ])
+    )
   end
 
   def test_filter_keys
