@@ -19,7 +19,12 @@ module I18nYamlEditor
 
     def filter_keys options={}
       filters = []
-      filters << lambda {|k| k.key =~ options[:match]} if options[:match]
+      if options.has_key?(:match)
+        filters << lambda {|k| k.key =~ options[:match]} 
+      end
+      if options.has_key?(:complete)
+        filters << lambda {|k| key_complete?(k.key) == options[:complete]}
+      end
 
       self.keys.select {|k|
         filters.all? {|filter| filter.call(k)}

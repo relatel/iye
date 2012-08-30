@@ -7,18 +7,28 @@ class TestStore < MiniTest::Unit::TestCase
   def store_with_keys
     Store.new(
       Key.new(:key => "session.login", :locale => "da", :text => "Log ind", :file => "/tmp/session.da.yml"),
-      Key.new(:key => "session.logout", :locale => "da", :text => "Log ud", :file => "/tmp/session.da.yml"),
       Key.new(:key => "session.login", :locale => "en", :text => "Sign in", :file => "/tmp/session.en.yml"),
+      Key.new(:key => "session.logout", :locale => "da", :text => "Log ud", :file => "/tmp/session.da.yml"),
       Key.new(:key => "app_name", :locale => "da", :text => "Oversætter", :file => "/tmp/da.yml")
     )
   end
 
-  def test_filter_keys_regexp
+  def test_filter_keys_match
     result = store_with_keys.filter_keys(:match => /login/)
 
     assert_equal 2, result.size
     assert_equal %w(da en).sort, result.map(&:locale).sort
     assert_equal "session.login", result.map(&:key).uniq.first
+  end
+
+  def test_filter_keys_complete
+    store = store_with_keys
+    store.create_missing_keys
+
+    result = store.filter_keys(:complete => false)
+
+    assert_equal 4, result.size
+    assert_equal %w(session.logout app_name).sort, result.map(&:key).uniq.sort
   end
 
   def test_key_categories
