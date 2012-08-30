@@ -4,3 +4,17 @@
     :email: ! 'E-mail:'
     :password: ! 'Password:'
     :login: Sign in
+  :session:
+    :new:
+      :email: ''
+      :password: ''
+      :login: ''
+      :remember_me: Remember me
+      :forgot: Forgotten your password?
+      :v1: ''
+    :create:
+      :logged_in: Welcome!
+      :invalid_login: ''
+    :destroy:
+      :logged_out: ''
+      :re_login: ''

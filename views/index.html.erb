@@ -1,9 +1,9 @@
-<h2>Categories</h2>
-
-<ul>
+<table class=categories cellspacing=0>
   <% categories.each do |category| %>
-    <li>
-      <a href="/?filters[key]=^<%= category %>"><%= category %></a>
-    </li>
+    <tr class=category>
+      <td class=key>
+        <a class=text href="/?filters[key]=^<%= category %>"><%= category %></a>
+      </td>
+    </tr>
   <% end %>
-</ul>
+</table>

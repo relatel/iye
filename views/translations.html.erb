@@ -1,19 +1,20 @@
-<h2>Translations</h2>
 <form action=/update method=post>
   <% filters.each do |filter, value| %>
     <input name=filters[<%= filter %> type=hidden value="<%= value %>"/>
   <% end %>
 
-  <table>
+  <table class=keys cellspacing=0>
     <% keys.each do |key, translations| %>
       <tr class="translation <%= "incomplete" unless app.store.key_complete?(key) %>" data-key=<%= key %>>
-        <td><%= key %></td>
-        <td>
-          <table>
+        <td class=key>
+          <span class=text><%= key %></span>
+        </td>
+        <td class=translations>
+          <table class=locales>
             <% translations.each do |translation| %>
               <tr>
-                <td><%= translation.locale %></td>
-                <td>
+                <td class=locale><%= translation.locale %>:</td>
+                <td class=value>
                   <% if translation.text.is_a? String %>
                     <input type=text name="keys[<%= translation.key %>][<%= translation.locale %>]" value="<%= translation.text %>" />
                   <% else %>
@@ -30,5 +31,5 @@
     <% end %>
   </table>
 
-  <input type=submit value=Save />
+  <p><input type=submit value=Save /></p>
 </form>
