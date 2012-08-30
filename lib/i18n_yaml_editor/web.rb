@@ -9,14 +9,12 @@ class I18nYamlEditor::Web < Cuba
     on get do
       on param("filter") do |filter|
         keys = IYE.store.filter_keys(/#{filter}/)
-        #keys = IYE.keys.select {|k| k[:key] =~ /#{filter}/}
-        #keys = keys.sort_by {|k| k.values_at(:key, :locale)}.group_by {|k| k[:key]}
+        keys = keys.sort_by(&:key)
         res.write view("translations.html", keys: keys, filter: filter)
       end
 
       on default do
         categories = IYE.store.key_categories
-        #groups = IYE.keys.map {|k| k[:key].split(".").first}.uniq
         res.write view("index.html", categories: categories, filter: "")
       end
     end

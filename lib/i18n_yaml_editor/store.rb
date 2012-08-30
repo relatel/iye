@@ -18,6 +18,17 @@ module I18nYamlEditor
       self.keys.map {|k| k.key.split(".").first}.uniq
     end
 
+    def find_key params
+      self.keys.detect {|key|
+        params.all? {|k,v| key.send(k) == v}
+      }
+    end
+
+    def update_key key, locale, text
+      key = find_key(:key => key, :locale => locale)
+      key.text = text
+    end
+
     def to_yaml
       result = {}
       files = self.keys.group_by(&:file)

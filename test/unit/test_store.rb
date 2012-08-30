@@ -27,6 +27,20 @@ class TestStore < MiniTest::Unit::TestCase
     assert_equal %w(app_name session).sort, result.sort
   end
 
+  def test_find_key
+    result = @store.find_key(:key => "session.login", :locale => "da")
+
+    assert_equal "Log ind", result.text
+  end
+
+  def test_update_key
+    @store.update_key("session.login", "da", "Kom indenfor")
+
+    key = @store.find_key(:key => "session.login", :locale => "da")
+    
+    assert_equal "Kom indenfor", key.text
+  end
+
   def test_to_yaml
     result = @store.to_yaml
 
