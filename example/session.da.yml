@@ -1,5 +1,16 @@
 ---
 :da:
   :session:
-    :login: Log ind
-    :logout: Log ud
+    :new:
+      :email: ! 'E-mail:'
+      :password: ! 'Kodeord:'
+      :login: Log ind
+      :remember_me: Husk mig
+      :forgot: Har du glemt dit kodeord?
+      :v1: Log ind på det gamle Firmafon
+    :create:
+      :logged_in: Velkommen til
+      :invalid_login: Forkert e-mail eller kodeord.
+    :destroy:
+      :logged_out: Logget ud
+      :re_login: Log ind igen.

@@ -1,5 +1,6 @@
 ---
 :en:
-  :session:
-    :login: Log in
-    :logout: ''
+  :new:
+    :email: ! 'E-mail:'
+    :password: ! 'Password:'
+    :login: Sign in
