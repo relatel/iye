@@ -4,15 +4,15 @@
 
   <table>
     <% keys.each do |key, translations| %>
-      <tr class="translation <%= "incomplete" if translations.any? {|t| t[:text].to_s =~ /\A\s*\z/} %>" data-key=<%= key %>>
+      <tr class="translation <%= "incomplete" unless app.store.key_complete?(key) %>" data-key=<%= key %>>
         <td><%= key %></td>
         <td>
           <table>
             <% translations.each do |translation| %>
               <tr>
-                <td><%= translation[:locale] %></td>
+                <td><%= translation.locale %></td>
                 <td>
-                  <input type=text name="keys[<%= translation[:key] %>][<%= translation[:locale] %>]" value="<%= translation[:text] %>" />
+                  <input type=text name="keys[<%= translation.key %>][<%= translation.locale %>]" value="<%= translation.text %>" />
                 </td>
               </tr>
             <% end %>

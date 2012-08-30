@@ -22,7 +22,7 @@ module I18nYamlEditor
       store.create_missing_keys
 
       $stdout.puts " * Starting web editor at port 5050"
-      Rack::Handler.default.run Web, :Port => 5050
+      Rack::Server.start :app => Web, :Port => 5050
     end
 
     def load_translations
@@ -36,7 +36,7 @@ module I18nYamlEditor
     def save_translations
       files = store.to_yaml
       files.each {|file, yaml|
-        File.open(file, "w") {|f| YAML.dump(yaml, file)}
+        File.open(file, "w") {|f| YAML.dump(yaml, f)}
       }
     end
   end
