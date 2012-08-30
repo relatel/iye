@@ -45,6 +45,24 @@ class TestStore < MiniTest::Unit::TestCase
     assert_equal "Kom indenfor", key.text
   end
 
+  def test_key_complete_with_missing_translations
+    store = IYE::Store.new(
+      IYE::Key.new(:key => "session.login", :locale => "en", :text => "Log in"),
+      IYE::Key.new(:key => "session.login", :locale => "da")
+    )
+
+    assert_equal false, store.key_complete?("session.login")
+  end
+
+  def test_key_complete_with_all_translations
+    store = IYE::Store.new(
+      IYE::Key.new(:key => "session.login", :locale => "en", :text => "Log in"),
+      IYE::Key.new(:key => "session.login", :locale => "da", :text => "Log ind")
+    )
+
+    assert store.key_complete?("session.login")
+  end
+
   def test_create_missing_keys
     store = IYE::Store.new(
       IYE::Key.new(locale: "da", key: "session.login"),

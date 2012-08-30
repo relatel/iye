@@ -29,9 +29,20 @@ module I18nYamlEditor
       }
     end
 
+    def find_keys params
+      self.keys.select {|key|
+        params.all? {|k,v| key.send(k) == v}
+      }
+    end
+
     def update_key key, locale, text
       key = find_key(:key => key, :locale => locale)
       key.text = text
+    end
+
+    def key_complete? key
+      keys = self.find_keys(:key => key)
+      keys.all? {|k| k.text.to_s !~ /\A\s*\z/}
     end
 
     def create_missing_keys

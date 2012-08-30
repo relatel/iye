@@ -26,7 +26,7 @@ module I18nYamlEditor
     end
 
     def load_translations
-      files = Dir[path + "/**/*.yml"]
+      files = Dir[@path + "/**/*.yml"]
       files.each {|file|
         yaml = YAML.load_file(file)
         store.from_yaml(yaml, file)

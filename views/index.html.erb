@@ -1,9 +1,9 @@
 <h2>Groups</h2>
 
 <ul>
-  <% groups.each do |group| %>
+  <% categories.each do |category| %>
     <li>
-      <a href="/?filter=^<%= group %>"><%= group %></a>
+      <a href="/?filter=^<%= category %>"><%= category %></a>
     </li>
   <% end %>
 </ul>
