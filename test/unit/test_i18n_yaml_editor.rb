@@ -51,32 +51,4 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
 
     assert_equal(output, IYE.nest_hash(input))
   end
-
-  def test_full_startup
-    IYE.startup("test/assets/full_startup_locales")
-
-    assert_equal 6, IYE.keys.size
-  end
-
-  def test_dump_to_files
-    keys = IYE.keys
-
-    require "tmpdir"
-    Dir.mktmpdir {|dir|
-      keys << {:key => "app_name", :text => "Oversætter", :file => "#{dir}/da.yml", :locale => "da"}
-      keys << {:key => "session.login", :text => "Log ind", :file => "#{dir}/session.da.yml", :locale => "da"}
-      keys << {:key => "session.logout", :text => "Log ud", :file => "#{dir}/session.da.yml", :locale => "da"}
-      keys << {:key => "session.login", :text => "Log in", :file => "#{dir}/session.en.yml", :locale => "en"}
-
-      IYE.dump_yaml
-
-      da = YAML.load_file("#{dir}/da.yml")
-      da_session = YAML.load_file("#{dir}/session.da.yml")
-      en_session = YAML.load_file("#{dir}/session.en.yml")
-
-      assert_equal({da: {app_name: "Oversætter"}}, da)
-      assert_equal({da: {session: {login: "Log ind", logout: "Log ud"}}}, da_session)
-      assert_equal({en: {session: {login: "Log in"}}}, en_session)
-    }
-  end
 end

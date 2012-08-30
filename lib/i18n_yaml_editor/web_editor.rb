@@ -14,7 +14,7 @@ module I18nYamlEditor
       on get do
         on param("filter") do |filter|
           keys = app.store.filter_keys(/#{filter}/)
-            keys = keys.sort_by(&:key)
+          keys = keys.sort_by(&:key)
           res.write view("translations.html", keys: keys, filter: filter)
         end
 
@@ -28,11 +28,10 @@ module I18nYamlEditor
         keys.each {|key, locales|
           locales.each {|locale, text|
             app.store.update_key(key, locale, text)
-            #k = IYE.keys.find {|k| k[:key] == key && k[:locale] == locale}
-            #k[:text] = text
           }
         }
-        app.save_yaml
+
+        app.save_translations
 
         res.redirect "/?filter=#{req["filter"]}"
       end

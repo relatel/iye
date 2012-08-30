@@ -40,18 +40,6 @@ module I18nYamlEditor
     result
   end
 
-  def self.startup path
-    files = Dir[path + "/**/*.yml"]
-    files.each {|file|
-      yaml = YAML.load_file(file)
-      load_yaml_to_database(yaml, file)
-    }
-    create_missing_keys
-  end
-
-  def self.dump_yaml
-      File.open(file, "w") {|f| YAML.dump(yaml, f)}
-  end
 end
 
 IYE = I18nYamlEditor
