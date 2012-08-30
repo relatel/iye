@@ -58,19 +58,6 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
     assert_equal 6, IYE.keys.size
   end
 
-  def test_load_yaml_to_datastore
-    input = {da: {session: {login: "Log ind"}}}
-    IYE.load_yaml_to_database(input)
-
-    keys = IYE.keys
-
-    assert_equal 1, keys.size
-    key = keys.first
-    assert_equal "da", key[:locale]
-    assert_equal "session.login", key[:key]
-    assert_equal "Log ind", key[:text]
-  end
-
   def test_locales
     keys = IYE.keys
     keys << {locale: "da"}

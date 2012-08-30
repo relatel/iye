@@ -40,19 +40,6 @@ module I18nYamlEditor
     result
   end
 
-  def self.load_yaml_to_database yaml, file=nil
-    keys = flatten_hash(yaml)
-    keys.each {|full_key, text|
-      _, locale, key = full_key.match(/^(.*?)\.(.*)/).to_a
-      self.keys.add(
-        :key => key,
-        :file => file,
-        :locale => locale,
-        :text => text
-      )
-    }
-  end
-
   def self.locales
     self.keys.map {|k| k[:locale]}.uniq
   end
