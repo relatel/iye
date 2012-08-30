@@ -1,12 +1,15 @@
 require "yaml"
 require "set"
 
+require "i18n_yaml_editor/app"
+require "i18n_yaml_editor/web"
+require "i18n_yaml_editor/web_editor"
 require "i18n_yaml_editor/store"
 require "i18n_yaml_editor/key"
 
 module I18nYamlEditor
-  def self.keys
-    @keys ||= Set.new
+  class << self
+    attr_accessor :app
   end
 
   def self.flatten_hash hash, namespace=[], tree={}
@@ -79,17 +82,7 @@ module I18nYamlEditor
   end
 
   def self.dump_yaml
-    keys = self.keys
-    files = keys.group_by {|key| key[:file]}
-    files.each {|file, keys|
-      res = {}
-      keys.each {|key|
-        full_key = key.values_at(:locale, :key).join(".")
-        res[full_key] = key[:text]
-      }
-      yaml = nest_hash(res)
       File.open(file, "w") {|f| YAML.dump(yaml, f)}
-    }
   end
 end
 

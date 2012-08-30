@@ -30,6 +30,19 @@ module I18nYamlEditor
       key.text = text
     end
 
+    def from_yaml yaml, file=nil
+      keys = IYE.flatten_hash(yaml)
+      keys.each {|full_key, text|
+        _, locale, key = full_key.match(/^(.*?)\.(.*)/).to_a
+        self.keys.add(
+          :key => key,
+          :file => file,
+          :locale => locale,
+          :text => text
+        )
+      }
+    end
+
     def to_yaml
       result = {}
       files = self.keys.group_by(&:file)
