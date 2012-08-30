@@ -44,7 +44,7 @@ module I18nYamlEditor
           app.save_translations
         end
 
-        res.redirect "/?filter=#{req["filter"]}"
+        res.redirect "/?#{Rack::Utils.build_nested_query(filters: req["filters"])}"
       end
 
       on get, "debug" do
