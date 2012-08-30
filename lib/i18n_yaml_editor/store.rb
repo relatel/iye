@@ -34,6 +34,21 @@ module I18nYamlEditor
       key.text = text
     end
 
+    def create_missing_keys
+      unique_keys = self.keys.map(&:key).uniq
+      unique_keys.each {|key|
+        existing_translations = self.keys.select {|k| k.key == key}
+        missing_translations = self.locales - existing_translations.map(&:locale)
+        missing_translations.each {|locale|
+          file = existing_translations.first.file.split(".")
+          file[-2] = locale
+          file = file.join(".")
+          new_key = Key.new(:locale => locale, :key => key, :file => file, :text => nil)
+          self.keys.add(new_key)
+        }
+      }
+    end
+
     def from_yaml yaml, file=nil
       keys = IYE.flatten_hash(yaml)
       keys.each {|full_key, text|

@@ -40,25 +40,6 @@ module I18nYamlEditor
     result
   end
 
-  def self.locales
-    self.keys.map {|k| k[:locale]}.uniq
-  end
-
-  def self.create_missing_keys
-    locales = self.locales
-    keys = self.keys.map {|k| k[:key]}.uniq
-    keys.each {|key|
-      existing = self.keys.select {|k| k[:key] == key}
-      missing = locales - existing.map {|r| r[:locale]}
-      missing.each {|locale|
-        file = existing.first[:file].split(".")
-        file[-2] = locale
-        file = file.join(".")
-        self.keys.add(:locale => locale, :key => key, :file => file, :text => nil)
-      }
-    }
-  end
-
   def self.startup path
     files = Dir[path + "/**/*.yml"]
     files.each {|file|

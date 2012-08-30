@@ -45,6 +45,25 @@ class TestStore < MiniTest::Unit::TestCase
     assert_equal "Kom indenfor", key.text
   end
 
+  def test_create_missing_keys
+    store = IYE::Store.new(
+      IYE::Key.new(locale: "da", key: "session.login"),
+      IYE::Key.new(locale: "en", key: "session.login"),
+
+      IYE::Key.new(locale: "da", key: "session.logout", text: "Ud", file: "/tmp/session.da.yml")
+    )
+
+    store.create_missing_keys
+
+    key = store.find_key(locale: "en", key: "session.logout")
+
+    assert key
+    assert_equal "en", key.locale
+    assert_equal "session.logout", key.key
+    assert_equal "/tmp/session.en.yml", key.file
+    assert_nil key.text
+  end
+
   def test_from_yaml
     input = {
       da: {

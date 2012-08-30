@@ -58,26 +58,6 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
     assert_equal 6, IYE.keys.size
   end
 
-  def test_locales
-    keys = IYE.keys
-    keys << {locale: "da"}
-    keys << {locale: "en"}
-
-    assert_equal(%w(da en).sort, IYE.locales.sort)
-  end
-
-  def test_create_missing_keys
-    keys = IYE.keys
-    keys << {locale: "da", key: "session.login"}
-    keys << {locale: "en", key: "session.login"}
-
-    keys << {locale: "da", key: "session.logout", file: "/tmp/session.da.yml"}
-
-    IYE.create_missing_keys
-
-    assert keys.include?(locale: "da", key: "session.logout", file: "/tmp/session.da.yml")
-  end
-
   def test_dump_to_files
     keys = IYE.keys
 
