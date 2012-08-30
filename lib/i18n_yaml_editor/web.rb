@@ -19,6 +19,7 @@ class I18nYamlEditor::Web < Cuba
         }
       }
       IYE.dump_yaml
+      res.redirect "/"
     end
   end
 end
