@@ -9,6 +9,12 @@
 5. Press 'Save'
 6. Use `git diff` to see the changes
 
+## Development
+
+There is a `config.ru` suitable for development use with `shotgun(1)`:
+    
+    shotgun -p 5050
+
 ## Todo
 
 * Split `Key` up in `Key`/`Translation`
