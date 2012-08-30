@@ -1,7 +1,10 @@
 require "yaml"
 require "set"
 
-class I18nYamlEditor
+require "i18n_yaml_editor/store"
+require "i18n_yaml_editor/key"
+
+module I18nYamlEditor
   def self.keys
     @keys ||= Set.new
   end
