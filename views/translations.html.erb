@@ -1,10 +1,17 @@
-<% keys.each do |key, translations| %>
-  <h2><%= key %></h2>
-  <ul>
-    <% translations.each do |translation| %>
-      <li>
-        <em><%= translation[:locale] %>:</em> <%= translation[:text] %> <i><%= translation[:file] %></i>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<table>
+  <% keys.each do |key, translations| %>
+    <tr>
+      <td><%= key %></td>
+      <td>
+        <table>
+          <% translations.each do |translation| %>
+            <tr>
+              <td><%= translation[:locale] %></td>
+              <td><input type=text value="<%= translation[:text] %>"</td>
+            </tr>
+          <% end %>
+        </table>
+      </td>
+    </tr>
+  <% end %>
+</table>
