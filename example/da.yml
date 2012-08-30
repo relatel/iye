@@ -1,2 +1,3 @@
-da:
-  app_name: "Oversætter"
+---
+:da:
+  :app_name: Oversætter
