@@ -1,0 +1,9 @@
+<html>
+  <body>
+    <pre>
+<% keys.each do |key| %>
+ <%= Rack::Utils.escape_html(key.inspect) %>
+<% end %>
+    </pre>
+  </body>
+</html>

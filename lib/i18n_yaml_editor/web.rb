@@ -41,6 +41,10 @@ module I18nYamlEditor
 
         res.redirect "/?filter=#{req["filter"]}"
       end
+
+      on get, "debug" do
+        res.write partial("debug.html", keys: app.store.keys)
+      end
     end
   end
 end
