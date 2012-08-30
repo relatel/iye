@@ -12,7 +12,13 @@
               <tr>
                 <td><%= translation.locale %></td>
                 <td>
-                  <input type=text name="keys[<%= translation.key %>][<%= translation.locale %>]" value="<%= translation.text %>" />
+                  <% if translation.text.is_a? String %>
+                    <input type=text name="keys[<%= translation.key %>][<%= translation.locale %>]" value="<%= translation.text %>" />
+                  <% else %>
+                    [read only]
+                    <%= translation.text.class.name %>
+                    <%= Rack::Utils.escape_html translation.text.inspect %>
+                  <% end %>
                 </td>
               </tr>
             <% end %>

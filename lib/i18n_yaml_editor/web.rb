@@ -30,14 +30,15 @@ module I18nYamlEditor
         end
       end
 
-      on post, "update", param("keys") do |keys|
-        keys.each {|key, locales|
-          locales.each {|locale, text|
-            app.store.update_key(key, locale, text)
+      on post, "update" do
+        if keys = req["keys"]
+          keys.each {|key, locales|
+            locales.each {|locale, text|
+              app.store.update_key(key, locale, text)
+            }
           }
-        }
-
-        app.save_translations
+          app.save_translations
+        end
 
         res.redirect "/?filter=#{req["filter"]}"
       end
