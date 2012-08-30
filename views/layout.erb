@@ -9,7 +9,18 @@
         background-color: #f99;
       }
     </style>
+  </head>
+
   <body>
+    <h1>i18n-yaml-editor</h1>
+
+    <h2>Filter</h2>
+    <form action=/ method=get>
+      <input name=filter type=text value="<%= filter %>"/>
+      <input type=submit value=Filter />
+    </form>
+
+    <h2>Translations</h2>
     <%= content %>
   </body>
 </html>

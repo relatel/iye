@@ -1,7 +1,9 @@
-<form action="/update" method=post>
+<form action=/update method=post>
+  <input name=filter type=hidden value="<%= filter %>"/>
+
   <table>
     <% keys.each do |key, translations| %>
-      <tr class="<%= "incomplete" if translations.any? {|t| t[:text].to_s =~ /\A\s*\z/} %>">
+      <tr class="translation <%= "incomplete" if translations.any? {|t| t[:text].to_s =~ /\A\s*\z/} %>" data-key=<%= key %>>
         <td><%= key %></td>
         <td>
           <table>
