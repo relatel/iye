@@ -17,12 +17,12 @@
     <h2>Filter</h2>
     <form action=/ method=get>
       <label>
-        Filter (Ruby RegExp allowed)
-        <input name=filter type=text value="<%= filter %>" />
+        Key
+        <input name=filters[keys] type=text value="<%= filters["keys"] %>" />
       </label>
       <br />
       <label>
-        <input name=incomplete type=checkbox value=1 />
+        <input name=filters[incomplete] type=checkbox <%= "checked=checked" if filters["incomplete"] == "on" %> />
         Incomplete
       </label>
       <br />

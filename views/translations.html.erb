@@ -1,6 +1,8 @@
 <h2>Translations</h2>
 <form action=/update method=post>
-  <input name=filter type=hidden value="<%= filter %>"/>
+  <% filters.each do |filter, value| %>
+    <input name=filters[<%= filter %> type=hidden value="<%= value %>"/>
+  <% end %>
 
   <table>
     <% keys.each do |key, translations| %>

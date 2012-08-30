@@ -18,17 +18,18 @@ module I18nYamlEditor
 
     define do
       on get, root do
-        on param("filter") do |filter|
-          options = {match: /#{filter}/}
-          options[:complete] = false if req["incomplete"]
+        on param("filters") do |filters|
+          options = {}
+          options[:match] = /#{filters["keys"]}/ if filters["keys"]
+          options[:complete] = false if filters["incomplete"] == "on"
           keys = app.store.filter_keys(options)
           keys = keys.group_by(&:key)
-          res.write view("translations.html", keys: keys, filter: filter)
+          res.write view("translations.html", keys: keys, filters: filters)
         end
 
         on default do
           categories = app.store.key_categories
-          res.write view("index.html", categories: categories, filter: "")
+          res.write view("index.html", categories: categories, filters: {})
         end
       end
 

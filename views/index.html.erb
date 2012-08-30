@@ -3,7 +3,7 @@
 <ul>
   <% categories.each do |category| %>
     <li>
-      <a href="/?filter=^<%= category %>"><%= category %></a>
+      <a href="/?filters[keys]=^<%= category %>"><%= category %></a>
     </li>
   <% end %>
 </ul>
