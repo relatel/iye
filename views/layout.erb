@@ -16,7 +16,16 @@
 
     <h2>Filter</h2>
     <form action=/ method=get>
-      <input name=filter type=text value="<%= filter %>"/>
+      <label>
+        Filter (Ruby RegExp allowed)
+        <input name=filter type=text value="<%= filter %>" />
+      </label>
+      <br />
+      <label>
+        <input name=incomplete type=checkbox value=1 />
+        Incomplete
+      </label>
+      <br />
       <input type=submit value=Filter />
     </form>
     <form action=/ method=get>

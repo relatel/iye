@@ -19,7 +19,9 @@ module I18nYamlEditor
     define do
       on get, root do
         on param("filter") do |filter|
-          keys = app.store.filter_keys(/#{filter}/)
+          options = {match: /#{filter}/}
+          options[:complete] = false if req["incomplete"]
+          keys = app.store.filter_keys(options)
           keys = keys.group_by(&:key)
           res.write view("translations.html", keys: keys, filter: filter)
         end
