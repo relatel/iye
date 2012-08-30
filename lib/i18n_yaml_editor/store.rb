@@ -17,8 +17,13 @@ module I18nYamlEditor
 
     attr_accessor :keys
 
-    def filter_keys filter
-      self.keys.select {|k| k.key =~ filter}
+    def filter_keys options={}
+      filters = []
+      filters << lambda {|k| k.key =~ options[:match]} if options[:match]
+
+      self.keys.select {|k|
+        filters.all? {|filter| filter.call(k)}
+      }
     end
 
     def key_categories

@@ -13,8 +13,8 @@ class TestStore < MiniTest::Unit::TestCase
     )
   end
 
-  def test_filter_keys
-    result = store_with_keys.filter_keys(/login/)
+  def test_filter_keys_regexp
+    result = store_with_keys.filter_keys(:match => /login/)
 
     assert_equal 2, result.size
     assert_equal %w(da en).sort, result.map(&:locale).sort
