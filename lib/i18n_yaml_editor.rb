@@ -29,8 +29,8 @@ module I18nYamlEditor
     hash.each {|key, value|
       sub_result = result
       keys = key.split(".")
-      keys.each {|k|
-        if keys.last == k
+      keys.each_with_index {|k, idx|
+        if (keys.size -1) == idx
           sub_result[k.to_sym] = value
         else
           sub_result = (sub_result[k.to_sym] ||= {})
