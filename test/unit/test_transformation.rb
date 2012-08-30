@@ -1,20 +1,10 @@
 # encoding: utf-8
 
-require "minitest/autorun"
-require "i18n_yaml_editor"
+require "test_helper"
+require "i18n_yaml_editor/transformation"
 
-class TestI18nYamlEditor < MiniTest::Unit::TestCase
-  def setup
-    IYE.keys.clear
-  end
-
-  def test_flatten_hash_single_level
-    input = {da: {login: "Log ind", logout: "Log ud"}}
-    output = {"da.login" => "Log ind", "da.logout" => "Log ud"}
-    assert_equal(output, IYE.flatten_hash(input))
-  end
-
-  def test_flatten_hash_extended
+class TestTransformation < MiniTest::Unit::TestCase
+  def test_flatten_hash
     input = {
       da: {
         session: {login: "Log ind", logout: "Log ud"}
@@ -23,14 +13,14 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
         session: {login: "Log in", logout: "Log out"}
       }
     }
-    output = {
+    expected = {
       "da.session.login" => "Log ind",
       "da.session.logout" => "Log ud",
       "en.session.login" => "Log in",
       "en.session.logout" => "Log out"
     }
 
-    assert_equal(output, IYE.flatten_hash(input))
+    assert_equal expected, IYE::Transformation.flatten_hash(input)
   end
 
   def test_nest_hash
@@ -40,7 +30,7 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
       "en.session.login" => "Log in",
       "en.session.logout" => "Log out"
     }
-    output = {
+    expected = {
       da: {
         session: {login: "Log ind", logout: "Log ud"}
       },
@@ -49,6 +39,6 @@ class TestI18nYamlEditor < MiniTest::Unit::TestCase
       }
     }
 
-    assert_equal(output, IYE.nest_hash(input))
+    assert_equal expected, IYE::Transformation.nest_hash(input)
   end
 end

@@ -3,6 +3,7 @@
 require "yaml"
 
 require "i18n_yaml_editor/web"
+require "i18n_yaml_editor/store"
 
 module I18nYamlEditor
   class App

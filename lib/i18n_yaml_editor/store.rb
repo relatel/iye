@@ -2,8 +2,13 @@
 
 require "set"
 
+require "i18n_yaml_editor/transformation"
+require "i18n_yaml_editor/key"
+
 module I18nYamlEditor
   class Store
+    include Transformation
+
     def initialize *new_keys
       self.keys = Set.new
       new_keys.each {|key| self.keys.add(key)}
@@ -61,7 +66,7 @@ module I18nYamlEditor
     end
 
     def from_yaml yaml, file=nil
-      keys = IYE.flatten_hash(yaml)
+      keys = flatten_hash(yaml)
       keys.each {|full_key, text|
         _, locale, key_name = full_key.match(/^(.*?)\.(.*)/).to_a
         key = Key.new(:key => key_name, :file => file, :locale => locale, :text => text)
@@ -77,7 +82,7 @@ module I18nYamlEditor
         file_keys.each {|key|
           file_result[key.full_key] = key.text
         }
-        result[file] = IYE.nest_hash(file_result)
+        result[file] = nest_hash(file_result)
       }
       result
     end
