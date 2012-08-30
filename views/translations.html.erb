@@ -15,7 +15,7 @@
               <tr>
                 <td class=locale><%= translation.locale %>:</td>
                 <td class=value>
-                  <% if translation.text.is_a? String %>
+                  <% if translation.text.nil? || translation.text.is_a?(String) %>
                     <input type=text name="keys[<%= translation.key %>][<%= translation.locale %>]" value="<%= translation.text %>" />
                   <% else %>
                     [read only]
