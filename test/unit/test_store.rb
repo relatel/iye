@@ -100,7 +100,7 @@ class TestStore < MiniTest::Unit::TestCase
     assert_equal "en", key.locale
     assert_equal "session.logout", key.key
     assert_equal "/tmp/session.en.yml", key.file
-    assert_nil key.text
+    assert_equal "", key.text
   end
 
   def test_create_missing_keys_in_top_level_file

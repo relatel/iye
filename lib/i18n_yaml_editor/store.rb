@@ -76,7 +76,7 @@ module I18nYamlEditor
           file[-2] = locale
           file = file.join(".")
           path = dirs.join(file).to_s
-          new_key = Key.new(:locale => locale, :key => key, :file => path, :text => nil)
+          new_key = Key.new(:locale => locale, :key => key, :file => path, :text => "")
           self.keys.add(new_key)
         }
       }
