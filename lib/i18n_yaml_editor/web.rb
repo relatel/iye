@@ -17,7 +17,7 @@ module I18nYamlEditor
     end
 
     define do
-      on get do
+      on get, root do
         on param("filter") do |filter|
           keys = app.store.filter_keys(/#{filter}/)
           keys = keys.group_by(&:key)
@@ -30,7 +30,7 @@ module I18nYamlEditor
         end
       end
 
-      on post, param("keys") do |keys|
+      on post, root, param("keys") do |keys|
         keys.each {|key, locales|
           locales.each {|locale, text|
             app.store.update_key(key, locale, text)
