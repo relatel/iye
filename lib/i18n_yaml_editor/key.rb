@@ -8,5 +8,9 @@ module I18nYamlEditor
       @key, @locale, @file, @text =
         attributes.values_at(:key, :locale, :file, :text)
     end
+
+    def full_key
+      [@locale, @key].join(".")
+    end
   end
 end

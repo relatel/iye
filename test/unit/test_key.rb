@@ -1,10 +1,11 @@
 # encoding: utf-8
 
-class TestKey < MiniTest::Unit::TestCase
-  attr_accessor :key, :locale, :file, :text
+require "test_helper"
 
-  def initialize *attributes
-    @key, @locale, @file, @text =
-      attributes.values_at(:key, :locale, :file, :text)
+class TestKey < MiniTest::Unit::TestCase
+  def test_full_key
+    key = IYE::Key.new(:key => "session.login", :locale => "da")
+
+    assert_equal "da.session.login", key.full_key
   end
 end

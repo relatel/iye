@@ -27,32 +27,32 @@ class TestStore < MiniTest::Unit::TestCase
     assert_equal %w(app_name session).sort, result.sort
   end
 
-  #def test_to_yaml
-    #result = @store.to_yaml
+  def test_to_yaml
+    result = @store.to_yaml
 
-    #expected = {
-      #"/tmp/session.da.yml" => {
-        #"da" => {
-          #"session" => {
-            #"login" => "Log ind",
-            #"logout" => "Log ud"
-          #}
-        #}
-      #},
-      #"/tmp/session.en.yml" => {
-        #"en" => {
-          #"session" => {
-            #"login" => "Sign in"
-          #}
-        #}
-      #},
-      #"/tmp/da.yml" => {
-        #"da" => {
-          #"app_name" => "Oversætter"
-        #}
-      #}
-    #}
+    expected = {
+      "/tmp/session.da.yml" => {
+        da: {
+          session: {
+            login: "Log ind",
+            logout: "Log ud"
+          }
+        }
+      },
+      "/tmp/session.en.yml" => {
+        en: {
+          session: {
+            login: "Sign in"
+          }
+        }
+      },
+      "/tmp/da.yml" => {
+        da: {
+          app_name: "Oversætter"
+        }
+      }
+    }
 
-    #assert_equal expected, result
-  #end
+    assert_equal expected, result
+  end
 end
