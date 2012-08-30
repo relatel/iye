@@ -1,2 +1,3 @@
-session:
-  login: "Log in"
+en:
+  session:
+    login: "Log in"

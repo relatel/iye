@@ -30,7 +30,7 @@ module I18nYamlEditor
         end
       end
 
-      on post, root, param("keys") do |keys|
+      on post("update"), param("keys") do |keys|
         keys.each {|key, locales|
           locales.each {|locale, text|
             app.store.update_key(key, locale, text)
