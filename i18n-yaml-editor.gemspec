@@ -31,6 +31,5 @@ Gem::Specification.new do |s|
     "test/unit/test_transformation.rb"
   ]
   s.add_dependency "cuba", "3.1.0"
-  s.add_dependency "cuba-contrib", "3.1.0"
   s.add_dependency "tilt", "1.3.3"
 end
