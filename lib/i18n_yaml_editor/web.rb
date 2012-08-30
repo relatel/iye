@@ -20,7 +20,8 @@ module I18nYamlEditor
       on get, root do
         on param("filters") do |filters|
           options = {}
-          options[:match] = /#{filters["keys"]}/ if filters["keys"]
+          options[:key] = /#{filters["key"]}/ if filters["key"]
+          options[:text] = /#{filters["text"]}/i if filters["text"]
           options[:complete] = false if filters["incomplete"] == "on"
           keys = app.store.filter_keys(options)
           keys = keys.group_by(&:key)
