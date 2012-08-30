@@ -1,6 +1,6 @@
 <table>
   <% keys.each do |key, translations| %>
-    <tr>
+    <tr class="<%= "incomplete" if translations.any? {|t| t[:text].to_s =~ /\A\s*\z/} %>">
       <td><%= key %></td>
       <td>
         <table>
