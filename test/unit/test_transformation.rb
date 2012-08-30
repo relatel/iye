@@ -20,7 +20,7 @@ class TestTransformation < MiniTest::Unit::TestCase
       "en.session.logout" => "Log out"
     }
 
-    assert_equal expected, IYE::Transformation.flatten_hash(input)
+    assert_equal expected, Transformation.flatten_hash(input)
   end
 
   def test_nest_hash
@@ -39,6 +39,6 @@ class TestTransformation < MiniTest::Unit::TestCase
       }
     }
 
-    assert_equal expected, IYE::Transformation.nest_hash(input)
+    assert_equal expected, Transformation.nest_hash(input)
   end
 end

@@ -5,7 +5,7 @@ require "i18n_yaml_editor/key"
 
 class TestKey < MiniTest::Unit::TestCase
   def test_full_key
-    key = IYE::Key.new(:key => "session.login", :locale => "da")
+    key = Key.new(:key => "session.login", :locale => "da")
 
     assert_equal "da.session.login", key.full_key
   end

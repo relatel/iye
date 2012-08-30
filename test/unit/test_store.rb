@@ -5,11 +5,11 @@ require "i18n_yaml_editor/store"
 
 class TestStore < MiniTest::Unit::TestCase
   def store_with_keys
-    IYE::Store.new(
-      IYE::Key.new(:key => "session.login", :locale => "da", :text => "Log ind", :file => "/tmp/session.da.yml"),
-      IYE::Key.new(:key => "session.logout", :locale => "da", :text => "Log ud", :file => "/tmp/session.da.yml"),
-      IYE::Key.new(:key => "session.login", :locale => "en", :text => "Sign in", :file => "/tmp/session.en.yml"),
-      IYE::Key.new(:key => "app_name", :locale => "da", :text => "Oversætter", :file => "/tmp/da.yml")
+    Store.new(
+      Key.new(:key => "session.login", :locale => "da", :text => "Log ind", :file => "/tmp/session.da.yml"),
+      Key.new(:key => "session.logout", :locale => "da", :text => "Log ud", :file => "/tmp/session.da.yml"),
+      Key.new(:key => "session.login", :locale => "en", :text => "Sign in", :file => "/tmp/session.en.yml"),
+      Key.new(:key => "app_name", :locale => "da", :text => "Oversætter", :file => "/tmp/da.yml")
     )
   end
 
@@ -47,29 +47,29 @@ class TestStore < MiniTest::Unit::TestCase
   end
 
   def test_key_complete_with_missing_translations
-    store = IYE::Store.new(
-      IYE::Key.new(:key => "session.login", :locale => "en", :text => "Log in"),
-      IYE::Key.new(:key => "session.login", :locale => "da")
+    store = Store.new(
+      Key.new(:key => "session.login", :locale => "en", :text => "Log in"),
+      Key.new(:key => "session.login", :locale => "da")
     )
 
     assert_equal false, store.key_complete?("session.login")
   end
 
   def test_key_complete_with_all_translations
-    store = IYE::Store.new(
-      IYE::Key.new(:key => "session.login", :locale => "en", :text => "Log in"),
-      IYE::Key.new(:key => "session.login", :locale => "da", :text => "Log ind")
+    store = Store.new(
+      Key.new(:key => "session.login", :locale => "en", :text => "Log in"),
+      Key.new(:key => "session.login", :locale => "da", :text => "Log ind")
     )
 
     assert store.key_complete?("session.login")
   end
 
   def test_create_missing_keys
-    store = IYE::Store.new(
-      IYE::Key.new(locale: "da", key: "session.login"),
-      IYE::Key.new(locale: "en", key: "session.login"),
+    store = Store.new(
+      Key.new(locale: "da", key: "session.login"),
+      Key.new(locale: "en", key: "session.login"),
 
-      IYE::Key.new(locale: "da", key: "session.logout", text: "Ud", file: "/tmp/session.da.yml")
+      Key.new(locale: "da", key: "session.logout", text: "Ud", file: "/tmp/session.da.yml")
     )
 
     store.create_missing_keys
@@ -89,7 +89,7 @@ class TestStore < MiniTest::Unit::TestCase
         session: {login: "Log ind"}
       }
     }
-    store = IYE::Store.new
+    store = Store.new
 
     store.from_yaml(input)
 
