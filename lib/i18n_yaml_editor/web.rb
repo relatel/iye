@@ -7,16 +7,16 @@ class I18nYamlEditor::Web < Cuba
 
   define do
     on get do
-      filter = req["filter"]
-      keys = if filter
-               IYE.keys.select {|k| k[:key] =~ /#{filter}/}
-             else
-               IYE.keys
-             end
+      on param("filter") do |filter|
+        keys = IYE.keys.select {|k| k[:key] =~ /#{filter}/}
+        keys = keys.sort_by {|k| k.values_at(:key, :locale)}.group_by {|k| k[:key]}
+        res.write view("translations.html", keys: keys, filter: filter)
+      end
 
-      keys = keys.sort_by {|k| k.values_at(:key, :locale)}.group_by {|k| k[:key]}
-
-      res.write view("translations.html", keys: keys, filter: filter)
+      on default do
+        groups = IYE.keys.map {|k| k[:key].split(".").first}.uniq
+        res.write view("index.html", groups: groups, filter: "")
+      end
     end
 
     on post, param("keys") do |keys|
