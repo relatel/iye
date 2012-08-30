@@ -15,6 +15,6 @@
       :logged_out: Logget ud
       :re_login: Log ind igen.
   :new:
-    :email: ''
-    :password: ''
-    :login: ''
+    :email: EMAIL
+    :password: pwd
+    :login: log in

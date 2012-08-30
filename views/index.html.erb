@@ -1,6 +1,6 @@
 <table class=categories cellspacing=0>
   <% categories.each do |category| %>
-    <tr class=category>
+    <tr class="category <%= "incomplete" unless app.store.category_complete?(category) %>">
       <td class=key>
         <a class=text href="/?filters[key]=^<%= category %>"><%= category %></a>
       </td>

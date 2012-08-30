@@ -5,7 +5,7 @@
 
   <table class=keys cellspacing=0>
     <% keys.each do |key, translations| %>
-      <tr class="translation <%= "incomplete" unless app.store.key_complete?(key) %>" data-key=<%= key %>>
+      <tr class="translation <%= "incomplete" unless app.store.key_complete?(key) %>">
         <td class=key>
           <span class=text><%= key %></span>
         </td>

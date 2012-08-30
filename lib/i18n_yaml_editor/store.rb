@@ -61,11 +61,13 @@ module I18nYamlEditor
 
     def key_complete? key
       keys = self.find_keys(:key => key)
-      keys.all? {|k| k.text.to_s !~ /\A\s*\z/}
+      keys.all? {|k| 
+        k.text.to_s !~ /\A\s*\z/
+      }
     end
 
     def category_complete? category
-      keys = self.filter_keys(:key => /^#{category}\./)
+      keys = self.filter_keys(:key => /^#{category}\.?.*\z/)
       keys.all? {|k| key_complete?(k.key)}
     end
 
