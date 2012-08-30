@@ -24,7 +24,7 @@ module I18nYamlEditor
           options[:text] = /#{filters["text"]}/i if filters["text"].to_s.size > 0
           options[:complete] = false if filters["incomplete"] == "on"
           keys = app.store.filter_keys(options)
-          keys = keys.sort_by(&:key).group_by(&:key)
+          keys = keys.sort_by {|k| [k.key, k.locale]}.group_by(&:key)
           res.write view("translations.html", keys: keys, filters: filters)
         end
 
