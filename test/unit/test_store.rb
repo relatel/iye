@@ -13,15 +13,15 @@ class TestStore < MiniTest::Unit::TestCase
     )
   end
 
-  def test_filter_keys_match
-    result = store_with_keys.filter_keys(:match => /login/)
+  def test_filter_keys_on_key
+    result = store_with_keys.filter_keys(:key => /login/)
 
     assert_equal 2, result.size
     assert_equal %w(da en).sort, result.map(&:locale).sort
     assert_equal "session.login", result.map(&:key).uniq.first
   end
 
-  def test_filter_keys_complete
+  def test_filter_keys_on_complete
     store = store_with_keys
     store.create_missing_keys
 
@@ -29,6 +29,16 @@ class TestStore < MiniTest::Unit::TestCase
 
     assert_equal 4, result.size
     assert_equal %w(session.logout app_name).sort, result.map(&:key).uniq.sort
+  end
+
+  def test_filter_keys_on_text
+    result = store_with_keys.filter_keys(:text => /Log/)
+
+    assert_equal 2, result.size
+    assert_equal(
+      [%w(da session.login), %w(da session.logout)].sort,
+      result.map {|r| [r.locale, r.key]}.sort
+    )
   end
 
   def test_key_categories
