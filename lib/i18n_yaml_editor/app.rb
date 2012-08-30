@@ -2,6 +2,7 @@
 
 require "yaml"
 
+require "i18n_yaml_editor"
 require "i18n_yaml_editor/web"
 require "i18n_yaml_editor/store"
 
