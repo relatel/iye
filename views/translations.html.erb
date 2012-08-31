@@ -4,19 +4,19 @@
   <% end %>
 
   <table class=keys cellspacing=0>
-    <% keys.each do |key, translations| %>
-      <tr class="translation <%= "incomplete" unless app.store.key_complete?(key) %>">
+    <% keys.each do |name, key| %>
+      <tr class="translation <%= "incomplete" unless key.complete? %>">
         <td class=key>
-          <span class=text><%= key %></span>
+          <span class=text><%= key.name %></span>
         </td>
         <td class=translations>
           <table class=locales>
-            <% translations.each do |translation| %>
+            <% key.translations.each do |translation| %>
               <tr>
                 <td class=locale><%= translation.locale %>:</td>
                 <td class=value>
                   <% if translation.text.nil? || translation.text.is_a?(String) %>
-                    <input type=text name="keys[<%= translation.key %>][<%= translation.locale %>]" value="<%= translation.text %>" />
+                    <input type=text name="translations[<%= translation.name %>]" value="<%= translation.text %>" />
                   <% else %>
                     [read only]
                     <%= translation.text.class.name %>

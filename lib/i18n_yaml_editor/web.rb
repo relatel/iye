@@ -25,7 +25,6 @@ module I18nYamlEditor
           options[:complete] = false if filters["incomplete"] == "on"
 
           keys = app.store.filter_keys(options)
-          #keys = keys.sort_by {|k| [k.key, k.locale]}.group_by(&:key)
 
           res.write view("translations.html", keys: keys, filters: filters)
         end
@@ -37,9 +36,9 @@ module I18nYamlEditor
       end
 
       on post, "update" do
-        if keys = req["translations"]
-          translations.each {|translation, text|
-            app.store.update_translation(translation, text)
+        if translations = req["translations"]
+          translations.each {|name, text|
+            app.store.translations[name].text = text
           }
           app.save_translations
         end
