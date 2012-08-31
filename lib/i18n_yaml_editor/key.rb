@@ -20,7 +20,11 @@ module I18nYamlEditor
     end
 
     def complete?
-      self.translations.all? {|t| t.text.to_s !~ /\A\s*\z/}
+      self.translations.all? {|t| t.text.to_s !~ /\A\s*\z/} || empty?
+    end
+
+    def empty?
+      self.translations.all? {|t| t.text.to_s =~ /\A\s*\z/}
     end
   end
 end
