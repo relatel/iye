@@ -60,32 +60,6 @@ module I18nYamlEditor
       }
     end
 
-    def key_categories
-      self.keys.map {|k| k.key.split(".").first}.uniq
-    end
-
-    def find_key params
-      self.keys.detect {|key|
-        params.all? {|k,v| key.send(k) == v}
-      }
-    end
-
-    def find_keys params
-      self.keys.select {|key|
-        params.all? {|k,v| key.send(k) == v}
-      }
-    end
-
-    def update_key key, locale, text
-      key = find_key(:key => key, :locale => locale)
-      key.text = text
-    end
-
-    def category_complete? category
-      keys = self.filter_keys(:key => /^#{category}\.?.*\z/)
-      keys.all? {|k| key_complete?(k.key)}
-    end
-
     def create_missing_keys
       self.keys.each {|name, key|
         missing_locales = self.locales - key.translations.map(&:locale)
