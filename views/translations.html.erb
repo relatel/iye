@@ -11,7 +11,7 @@
         </td>
         <td class=translations>
           <table class=locales>
-            <% key.translations.each do |translation| %>
+            <% key.translations.sort_by(&:locale).each do |translation| %>
               <tr>
                 <td class=locale><%= translation.locale %>:</td>
                 <td class=value>
