@@ -38,7 +38,7 @@ module I18nYamlEditor
     def save_translations
       files = store.to_yaml
       files.each {|file, yaml|
-        File.open(file, "w") {|f| f << yaml.to_yaml}
+        File.open(file, "w", encoding: "utf-8") {|f| f << yaml.to_yaml}
       }
     end
   end
