@@ -23,6 +23,17 @@ class TestStore < MiniTest::Unit::TestCase
     assert_equal %w(da), store.locales.to_a
   end
 
+  def test_add_duplicate_translation
+    store = Store.new
+    t1 = Translation.new(:name => "da.session.login")
+    t2 = Translation.new(:name => "da.session.login")
+    store.add_translation(t1)
+
+    assert_raises(DuplicateTranslationError) {
+      store.add_translation(t2)
+    }
+  end
+
   def test_filter_keys_on_key
     store = Store.new
     store.add_key(Key.new(name: "session.login"))

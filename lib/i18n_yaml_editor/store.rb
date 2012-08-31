@@ -9,6 +9,8 @@ require "i18n_yaml_editor/key"
 require "i18n_yaml_editor/translation"
 
 module I18nYamlEditor
+  class DuplicateTranslationError < StandardError; end
+
   class Store
     include Transformation
 
@@ -22,6 +24,11 @@ module I18nYamlEditor
     end
 
     def add_translation translation
+      if existing = self.translations[translation.name]
+        message = "#{translation.name} detected in #{translation.file} and #{existing.file}"
+        raise DuplicateTranslationError.new(message)
+      end
+
       self.translations[translation.name] = translation
 
       add_locale(translation.locale)
