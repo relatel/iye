@@ -15,20 +15,24 @@ Gem::Specification.new do |s|
     "bin/iye",
 		"lib/i18n_yaml_editor.rb",
 		"lib/i18n_yaml_editor/app.rb",
+		"lib/i18n_yaml_editor/category.rb",
 		"lib/i18n_yaml_editor/key.rb",
 		"lib/i18n_yaml_editor/store.rb",
 		"lib/i18n_yaml_editor/transformation.rb",
+		"lib/i18n_yaml_editor/translation.rb",
 		"lib/i18n_yaml_editor/web.rb",
-    "views/index.html.erb",
     "views/layout.erb",
+    "views/categories.html.erb",
     "views/translations.html.erb"
   ]
   s.test_files = [
     "test/test_helper.rb",
     "test/unit/test_app.rb",
+    "test/unit/test_category.rb",
     "test/unit/test_key.rb",
     "test/unit/test_store.rb",
-    "test/unit/test_transformation.rb"
+    "test/unit/test_transformation.rb",
+    "test/unit/test_translation.rb"
   ]
   s.add_dependency "cuba", "3.1.0"
   s.add_dependency "tilt", "1.3.3"
