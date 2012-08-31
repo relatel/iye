@@ -47,6 +47,10 @@ module I18nYamlEditor
 
         res.redirect "/?#{Rack::Utils.build_nested_query(filters: req["filters"])}"
       end
+
+      on get, "debug" do
+        res.write partial("debug.html", translations: app.store.translations.values)
+      end
     end
   end
 end

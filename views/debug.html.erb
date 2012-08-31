@@ -1,8 +1,8 @@
 <html>
   <body>
     <pre>
-<% keys.each do |key| %>
- <%= Rack::Utils.escape_html(key.inspect) %>
+<% translations.each do |translation| %>
+ <%= Rack::Utils.escape_html(translation.inspect) %>
 <% end %>
     </pre>
   </body>
