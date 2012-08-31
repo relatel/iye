@@ -1,16 +1,26 @@
 # encoding: utf-8
 
+require "set"
+
 module I18nYamlEditor
   class Key
-    attr_accessor :key, :locale, :file, :text
+    attr_accessor :name, :translations
 
     def initialize attributes={}
-      @key, @locale, @file, @text =
-        attributes.values_at(:key, :locale, :file, :text)
+      @name = attributes[:name]
+      @translations = Set.new
     end
 
-    def full_key
-      [@locale, @key].join(".")
+    def add_translation translation
+      self.translations.add(translation)
+    end
+
+    def category
+      @category ||= self.name.split(".").first
+    end
+
+    def complete?
+      self.translations.all? {|t| t.text.to_s !~ /\A\s*\z/}
     end
   end
 end
