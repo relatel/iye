@@ -48,9 +48,21 @@ class TestStore < MiniTest::Unit::TestCase
   def test_filter_keys_on_complete
     store = Store.new
     store.add_translation Translation.new(name: "da.session.login", text: "Log ind")
-    store.add_translation Translation.new(name: "da.session.logout")
+    store.add_translation Translation.new(name: "en.session.login")
+    store.add_translation Translation.new(name: "da.session.logout", text: "Log ud")
 
     result = store.filter_keys(complete: false)
+
+    assert_equal 1, result.size
+    assert_equal %w(session.login), result.keys
+  end
+
+  def test_filter_keys_on_empty
+    store = Store.new
+    store.add_translation Translation.new(name: "da.session.login", text: "Log ind")
+    store.add_translation Translation.new(name: "da.session.logout")
+
+    result = store.filter_keys(empty: true)
 
     assert_equal 1, result.size
     assert_equal %w(session.logout), result.keys

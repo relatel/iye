@@ -56,6 +56,9 @@ module I18nYamlEditor
       if options.has_key?(:complete)
         filters << lambda {|k| k.complete? == options[:complete]}
       end
+      if options.has_key?(:empty)
+        filters << lambda {|k| k.empty? == options[:empty]}
+      end
       if options.has_key?(:text)
         filters << lambda {|k|
           k.translations.any? {|t| t.text =~ options[:text]}

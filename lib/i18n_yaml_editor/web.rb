@@ -25,6 +25,7 @@ module I18nYamlEditor
           options[:key] = /#{filters["key"]}/ if filters["key"].to_s.size > 0
           options[:text] = /#{filters["text"]}/i if filters["text"].to_s.size > 0
           options[:complete] = false if filters["incomplete"] == "on"
+          options[:empty] = true if filters["empty"] == "on"
 
           keys = app.store.filter_keys(options)
 

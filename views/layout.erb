@@ -97,6 +97,10 @@
           <input name=filters[incomplete] type=checkbox <%= "checked=checked" if filters["incomplete"] == "on" %> />
           Incomplete
         </label>
+        <label>
+          <input name=filters[empty] type=checkbox <%= "checked=checked" if filters["empty"] == "on" %> />
+          Empty
+        </label>
 
         <input type=submit value=Filter />
       </form>
