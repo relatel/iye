@@ -2,8 +2,6 @@
 
 module I18nYamlEditor
   module Transformation
-    extend self
-
     def flatten_hash hash, namespace=[], tree={}
       hash.each {|key, value|
         child_ns = namespace.dup << key
@@ -15,6 +13,7 @@ module I18nYamlEditor
       }
       tree
     end
+    module_function :flatten_hash
 
     def nest_hash hash
       result = {}
@@ -31,5 +30,6 @@ module I18nYamlEditor
       }
       result
     end
+    module_function :nest_hash
   end
 end
