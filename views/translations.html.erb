@@ -5,7 +5,10 @@
 
   <table class=keys cellspacing=0>
     <% keys.each do |name, key| %>
-      <tr class="translation <%= "incomplete" unless key.complete? %>">
+      <tr class="translation 
+        <%= "incomplete" unless key.complete? %>
+        <%= "empty" if key.empty? %>
+        ">
         <td class=key>
           <span class=text><%= key.name %></span>
         </td>
