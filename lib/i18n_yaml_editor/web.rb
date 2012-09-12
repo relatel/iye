@@ -33,7 +33,7 @@ module I18nYamlEditor
         end
 
         on default do
-          categories = app.store.categories
+          categories = app.store.categories.sort
           res.write view("categories.html", categories: categories, filters: {})
         end
       end
