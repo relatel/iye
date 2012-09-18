@@ -1,4 +1,5 @@
 <form action=/update method=post>
+  <input type=submit value=Save />
   <% filters.each do |filter, value| %>
     <input name=filters[<%= filter %> type=hidden value="<%= value %>"/>
   <% end %>

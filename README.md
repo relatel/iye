@@ -1,7 +1,7 @@
-# i18n-yaml-editor
+# Iye
 
-i18n-yaml-editor makes it easy to translate your Rails I18N files and keeps them
-up to date. Unlike a lot of other tools in this space, IYE works directly on the
+Iye - short for i18n yaml editor - makes it easy to translate your Rails I18N files and 
+keeps them up to date. Unlike a lot of other tools in this space, IYE works directly on the
 YAML files instead of keeping a separate database in sync. This has several benefits:
 
 * Branching and diffing is trivial
@@ -20,7 +20,7 @@ You need to understand a few things about IYE for it to make sense, mainly:
 
 1. Install IYE:
       
-        $ gem install i18n-yaml-editor
+        $ gem install iye
 
 2. Navigate to the folder containing your YAML files and start IYE:
     

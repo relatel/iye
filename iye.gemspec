@@ -1,17 +1,17 @@
 Gem::Specification.new do |s|
-  s.name     = "i18n-yaml-editor"
+  s.name     = "iye"
   s.version  = "0.9"
   s.date     = "2012-08-30"
   s.summary  = "I18n Yaml Editor"
   s.email    = "hv@firmafon.dk"
-  s.homepage = "http://github.com/firmafon/i18n-yaml-editor"
+  s.homepage = "http://github.com/firmafon/iye"
   s.description = "I18n Yaml Editor"
   s.authors  = ["Harry Vangberg"]
   s.executables << "iye"
   s.files    = [
     "README.md",
     "Rakefile",
-		"i18n-yaml-editor.gemspec",
+		"iye.gemspec",
     "bin/iye",
 		"lib/i18n_yaml_editor.rb",
 		"lib/i18n_yaml_editor/app.rb",
