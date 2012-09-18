@@ -1,5 +1,4 @@
-<form action="/update" method="post">
-  <input type="submit" value="Save" />
+<form id="updateform" action="/update" method="post">
   <% filters.each do |filter, value| %>
     <input name="filters[<%= filter %>" type="hidden" value="<%= value %>"/>
   <% end %>
@@ -37,3 +36,9 @@
 
   <p><input type="submit" id="save" value="Save" /></p>
 </form>
+<script type="text/javascript">
+  $('.header .pull-right').html("<button id='save-on-top'>Save</button>")
+  $('#save-on-top').click(function() {
+    $('#updateform').submit();
+  });
+</script>
