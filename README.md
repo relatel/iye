@@ -1,7 +1,7 @@
 # Iye
 
 Iye - short for i18n yaml editor - makes it easy to translate your Rails I18N files and 
-keeps them up to date. Unlike a lot of other tools in this space, IYE works directly on the
+keep them up to date. Unlike a lot of other tools in this space, IYE works directly on the
 YAML files instead of keeping a separate database in sync. This has several benefits:
 
 * Branching and diffing is trivial
