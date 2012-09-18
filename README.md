@@ -9,6 +9,8 @@ YAML files instead of keeping a separate database in sync. This has several bene
   YAML files directly
 * If your YAML files are organized in subfolders, this structure is kept intact
 
+![IYE yaml editor](http://f.cl.ly/items/2K2V2i3N2R2X1L2F051F/Sk%C3%A6rmbillede%202012-09-18%20kl.%2013.36.07.png)
+
 ## Prerequisites
 
 You need to understand a few things about IYE for it to make sense, mainly:
