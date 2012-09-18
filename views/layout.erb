@@ -6,13 +6,21 @@
         font-family: sans-serif;
         font-size: 0.7em;
         margin: 0;
+        margin-top: 60px;
       }
 
       /* HEADER */
       .header {
         margin: 0;
         padding: 1em;
-        background-color: #b4b4b4;
+        background-color: #fff;
+        z-index: 999 !important;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        -webkit-box-shadow: 0 8px 6px -6px #ccc;
+        	   -moz-box-shadow: 0 8px 6px -6px #ccc;
+        	        box-shadow: 0 8px 6px -6px #ccc;
       }
 
       .header h1, .header form {
@@ -83,38 +91,38 @@
   </head>
 
   <body>
-    <div class=header>
-      <h1>i18n-yaml-editor</h1>
+    <div class="header">
+      <h1>IYE</h1>
 
-      <form action=/ method=get>
+      <form action="/" method="get">
         <label>
           Key:
-          <input name=filters[key] type=text value="<%= filters["key"] %>" />
+          <input name="filters[key]" type="text" value="<%= filters["key"] %>" />
         </label>
 
         <label>
           Text:
-          <input name=filters[text] type=text value="<%= filters["text"] %>" />
+          <input name="filters[text]" type="text" value="<%= filters["text"] %>" />
         </label>
 
         <label>
-          <input name=filters[incomplete] type=checkbox <%= "checked=checked" if filters["incomplete"] == "on" %> />
+          <input name="filters[incomplete]" type="checkbox" <%= "checked=checked" if filters["incomplete"] == "on" %> />
           Incomplete
         </label>
         <label>
-          <input name=filters[empty] type=checkbox <%= "checked=checked" if filters["empty"] == "on" %> />
+          <input name="filters[empty]" type="checkbox" <%= "checked=checked" if filters["empty"] == "on" %> />
           Empty
         </label>
 
-        <input type=submit value=Filter />
+        <input type="submit" value="Filter" />
       </form>
 
-      <form action=/ method=get>
-        <input type=submit value=Clear />
+      <form action="/" method="get">
+        <input type="submit" value="Clear" />
       </form>
     </div>
 
-    <div class=content>
+    <div class="content">
       <%= content %>
     </div>
   </body>

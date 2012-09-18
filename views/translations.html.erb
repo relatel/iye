@@ -1,26 +1,26 @@
-<form action=/update method=post>
-  <input type=submit value=Save />
+<form action="/update" method="post">
+  <input type="submit" value="Save" />
   <% filters.each do |filter, value| %>
-    <input name=filters[<%= filter %> type=hidden value="<%= value %>"/>
+    <input name="filters[<%= filter %>" type="hidden" value="<%= value %>"/>
   <% end %>
 
-  <table class=keys cellspacing=0>
+  <table class="keys" cellspacing="0">
     <% keys.each do |name, key| %>
       <tr class="translation 
         <%= "incomplete" unless key.complete? %>
         <%= "empty" if key.empty? %>
         ">
-        <td class=key>
-          <span class=text><%= key.name %></span>
+        <td class="key">
+          <span class="text"><%= key.name %></span>
         </td>
-        <td class=translations>
-          <table class=locales>
+        <td class="translations">
+          <table class="locales">
             <% key.translations.sort_by(&:locale).each do |translation| %>
               <tr>
-                <td class=locale><%= translation.locale %>:</td>
-                <td class=value>
+                <td class="locale"><%= translation.locale %>:</td>
+                <td class="value">
                   <% if translation.text.nil? || translation.text.is_a?(String) %>
-                    <input type=text name="translations[<%= translation.name %>]" value="<%= translation.text %>" />
+                    <input type="text" name="translations[<%= translation.name %>]" value="<%= translation.text %>" />
                   <% else %>
                     [read only]
                     <%= translation.text.class.name %>
@@ -35,5 +35,5 @@
     <% end %>
   </table>
 
-  <p><input type=submit value=Save /></p>
+  <p><input type="submit" id="save" value="Save" /></p>
 </form>
