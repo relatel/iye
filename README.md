@@ -1,6 +1,6 @@
 # IYE
 
-IYE - short for i18n yaml editor - makes it easy to translate your Rails I18N files and 
+IYE - short for I18N YAML Editor - makes it easy to translate your Rails I18N files and 
 keep them up to date. Unlike a lot of other tools in this space, IYE works directly on the
 YAML files instead of keeping a separate database in sync. This has several benefits:
 
