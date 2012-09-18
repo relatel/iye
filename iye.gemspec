@@ -1,11 +1,11 @@
 Gem::Specification.new do |s|
   s.name     = "iye"
-  s.version  = "0.9"
-  s.date     = "2012-08-30"
+  s.version  = "1.0.0"
+  s.date     = "2012-09-18"
   s.summary  = "I18n Yaml Editor"
   s.email    = "hv@firmafon.dk"
   s.homepage = "http://github.com/firmafon/iye"
-  s.description = "I18n Yaml Editor"
+  s.description = "I18n YAML Editor"
   s.authors  = ["Harry Vangberg"]
   s.executables << "iye"
   s.files    = [
@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
     "test/unit/test_transformation.rb",
     "test/unit/test_translation.rb"
   ]
-  s.add_dependency "cuba", "3.1.0"
-  s.add_dependency "tilt", "1.3.3"
-  s.add_dependency "psych", "1.3.4"
+  s.add_dependency "cuba", ">= 3"
+  s.add_dependency "tilt", ">= 1.3"
+  s.add_dependency "psych", ">= 1.3.4"
 end
