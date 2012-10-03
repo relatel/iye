@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 module I18nYamlEditor
+  class TransformationError < StandardError; end
+
   module Transformation
     def flatten_hash hash, namespace=[], tree={}
       hash.each {|key, value|
@@ -18,15 +20,19 @@ module I18nYamlEditor
     def nest_hash hash
       result = {}
       hash.each {|key, value|
-        sub_result = result
-        keys = key.split(".")
-        keys.each_with_index {|k, idx|
-          if keys.size - 1 == idx
-            sub_result[k.to_sym] = value
-          else
-            sub_result = (sub_result[k.to_sym] ||= {})
-          end
-        }
+        begin
+          sub_result = result
+          keys = key.split(".")
+          keys.each_with_index {|k, idx|
+            if keys.size - 1 == idx
+              sub_result[k.to_sym] = value
+            else
+              sub_result = (sub_result[k.to_sym] ||= {})
+            end
+          }
+        rescue => e
+          raise TransformationError.new("Failed to nest key: #{key.inspect} with value: #{value.inspect}")
+        end
       }
       result
     end
