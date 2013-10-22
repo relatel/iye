@@ -2,7 +2,7 @@
   <% categories.each do |name, category| %>
     <tr class="category <%= "incomplete" unless category.complete? %>">
       <td class="key">
-        <a class="text" href="/?filters[key]=^<%= category.name %>"><%= category.name %></a>
+        <a class="text" href="/?filters[key]=<%= Rack::Utils.escape("^#{category.name}") %>"><%= category.name %></a>
       </td>
     </tr>
   <% end %>
