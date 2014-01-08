@@ -3,7 +3,7 @@
   :session:
     :new:
       :email: ! 'E-mail:'
-      :password: ''
+      :password:
       :login: Log ind
       :remember_me: Husk mig
       :forgot: Har du glemt dit kodeord?

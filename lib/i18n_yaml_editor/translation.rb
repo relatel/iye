@@ -8,6 +8,10 @@ module I18nYamlEditor
       @name, @file, @text = attributes.values_at(:name, :file, :text)
     end
 
+    def text
+      @text == "" ? nil : @text
+    end
+
     def key
       @key ||= self.name.split(".")[1..-1].join(".")
     end
