@@ -117,6 +117,15 @@
           Incomplete
         </label>
         <label>
+          <select name="filters[missing_locale]" value="<%= filters["missing_locale"] %>">
+            <option <%= filters["missing_locale"] == "All" ? "selected" : "" %>>All</option>
+            <% locales.each do |locale| %>
+              <option <%= filters["missing_locale"] == locale ? "selected" : "" %>><%= locale %></option>
+            <% end %>
+          </select>
+        </label>
+
+        <label>
           <input name="filters[empty]" type="checkbox" <%= "checked=checked" if filters["empty"] == "on" %> />
           Empty
         </label>
