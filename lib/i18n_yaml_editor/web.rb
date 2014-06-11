@@ -26,15 +26,19 @@ module I18nYamlEditor
           options[:text] = /#{filters["text"]}/i if filters["text"].to_s.size > 0
           options[:complete] = false if filters["incomplete"] == "on"
           options[:empty] = true if filters["empty"] == "on"
+          options[:missing_locale] = filters["missing_locale"]
 
           keys = app.store.filter_keys(options)
+          locales = app.store.locales
 
-          res.write view("translations.html", keys: keys, filters: filters)
+          res.write view("translations.html", keys: keys, filters: filters, locales: locales)
         end
 
         on default do
           categories = app.store.categories.sort
-          res.write view("categories.html", categories: categories, filters: {})
+          locales = app.store.locales
+
+          res.write view("categories.html", categories: categories, filters: {}, locales: locales)
         end
       end
 

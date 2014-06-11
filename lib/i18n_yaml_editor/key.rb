@@ -15,6 +15,10 @@ module I18nYamlEditor
       self.translations.add(translation)
     end
 
+    def has_translation_for?(locale)
+      translations.select{|tr| tr.locale == locale and (!tr.text.nil? or !tr.text.empty?) }.any?
+    end
+
     def category
       @category ||= self.name.split(".").first
     end
