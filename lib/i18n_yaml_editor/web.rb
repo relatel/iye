@@ -52,6 +52,21 @@ module I18nYamlEditor
       on get, "debug" do
         res.write partial("debug.html", translations: app.store.translations.values)
       end
+
+      on post, "create" do
+        key  = req.params["key"]
+        locale = req.params["locale"]
+        file = req.params["file"]
+        text = req.params["text"]
+
+        translation =  Translation.new name:"#{locale}.#{key}", file:file, text:text
+        app.store.add_translation translation
+        app.save_translations
+
+        keys = app.store.filter_keys(key: /#{key}/)
+        res.write view("translations.html", keys: keys, filters: {key:key})
+        # res.write "key:#{key}, file:#{file}, text:#{text}"
+      end
     end
   end
 end

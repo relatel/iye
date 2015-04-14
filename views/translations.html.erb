@@ -5,7 +5,7 @@
 
   <table class="keys" cellspacing="0">
     <% keys.each do |name, key| %>
-      <tr class="translation 
+      <tr class="translation
         <%= "incomplete" unless key.complete? %>
         <%= "empty" if key.empty? %>
         ">
@@ -34,10 +34,12 @@
     <% end %>
   </table>
 
-  <p class="pull-right"><input type="submit" id="save" value="Save" /></p>
+  <p class="pull-right">
+    <input type="submit" id="save" value="Save" />
+  </p>
 </form>
 <script type="text/javascript">
-  $('.header .pull-right').html("<button id='save-on-top'>Save</button>")
+  $('.header .pull-right').append("<button id='save-on-top'>Save</button>")
   $('#save-on-top').click(function() {
     $('#updateform').submit();
   });

@@ -32,7 +32,7 @@
       .header h1 {
         margin-right: 2em;
       }
-      
+
       .pull-right {
         float:right;
         padding-right:20px;
@@ -93,6 +93,16 @@
       table.categories tr.category.incomplete .key .text {
         border-bottom: 3px solid #f33;
       }
+
+      /* NEW TRANSLATION FORM */
+
+      .new {
+        padding: 20px;
+        border-bottom: 1px solid #bbb;
+      }
+      .new label {
+        font-weight: bold;
+      }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
   </head>
@@ -127,13 +137,38 @@
       <form action="/" method="get">
         <input type="submit" value="Clear" />
       </form>
-      
+
       <div class="pull-right">
+        <input type="submit" id="new" value="New" />
       </div>
+    </div>
+
+    <div class="new" style="display:none;">
+      <form id="newform" action="/create" method="post">
+        <label>Add new translation:</label>
+        <p> File:
+          <select name='file'>
+            <% app.store.files.each do |file| %><option value="<%=file%>"><%= file %></option><% end %>
+          </select>
+        </p>
+        <p> Locale:
+          <select name='locale'>
+            <% app.store.locales.each do |locale| %><option value="<%=locale%>"><%= locale %></option><% end %>
+          </select>
+        </p>
+        <p> Key:  <input name='key' type="text" size="60"/></p>
+        <p> Text: <textarea name='text' type="text" cols="60" rows="5"></textarea></p>
+        <p><input type="submit" value="Submit"> or <a id='close' href='#'>close</a></p>
+      </form>
     </div>
 
     <div class="content">
       <%= content %>
     </div>
+
+    <script type="text/javascript">
+      $('#new').click(function() { $('.new').show(); });
+      $('#close').click(function() { $('.new').hide(); });
+    </script>
   </body>
 </html>

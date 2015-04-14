@@ -14,13 +14,14 @@ module I18nYamlEditor
   class Store
     include Transformation
 
-    attr_accessor :categories, :keys, :translations, :locales
+    attr_accessor :categories, :keys, :translations, :locales, :files
 
     def initialize
       @categories = {}
       @keys = {}
       @translations = {}
       @locales = Set.new
+      @files = Set.new
     end
 
     def add_translation translation
@@ -32,6 +33,7 @@ module I18nYamlEditor
       self.translations[translation.name] = translation
 
       add_locale(translation.locale)
+      add_file(translation.file)
 
       key = (self.keys[translation.key] ||= Key.new(name: translation.key))
       key.add_translation(translation)
@@ -48,10 +50,14 @@ module I18nYamlEditor
       self.locales.add(locale)
     end
 
+    def add_file file
+      self.files.add(file)
+    end
+
     def filter_keys options={}
       filters = []
       if options.has_key?(:key)
-        filters << lambda {|k| k.name =~ options[:key]} 
+        filters << lambda {|k| k.name =~ options[:key]}
       end
       if options.has_key?(:complete)
         filters << lambda {|k| k.complete? == options[:complete]}
