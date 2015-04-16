@@ -147,17 +147,16 @@
       <form id="newform" action="/create" method="post">
         <label>Add new translation:</label>
         <p> File:
-          <select name='file'>
-            <% app.store.files.each do |file| %><option value="<%=file%>"><%= file %></option><% end %>
-          </select>
-        </p>
-        <p> Locale:
-          <select name='locale'>
-            <% app.store.locales.each do |locale| %><option value="<%=locale%>"><%= locale %></option><% end %>
+          <select name='file_radix'>
+            <% app.store.file_radixes.each do |radix| %>
+              <option value="<%=radix%>"><%= "#{radix}[locale].yml" %></option>
+            <% end %>
           </select>
         </p>
         <p> Key:  <input name='key' type="text" size="60"/></p>
-        <p> Text: <textarea name='text' type="text" cols="60" rows="5"></textarea></p>
+        <% app.store.locales.each do |locale| %>
+          <p> <%= locale %>: <textarea name='text_<%=locale%>' type="text" cols="60" rows="3"></textarea></p>
+        <% end -%>
         <p><input type="submit" value="Submit"> or <a id='close' href='#'>close</a></p>
       </form>
     </div>

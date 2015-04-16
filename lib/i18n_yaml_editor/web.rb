@@ -56,11 +56,19 @@ module I18nYamlEditor
       on post, "create" do
         key  = req.params["key"]
         locale = req.params["locale"]
-        file = req.params["file"]
-        text = req.params["text"]
+        file_radix = req.params["file_radix"]
 
-        translation =  Translation.new name:"#{locale}.#{key}", file:file, text:text
-        app.store.add_translation translation
+        app.store.locales.each do |locale|
+          name = "#{locale}.#{key}"
+          file = "#{file_radix}#{locale}.yml"
+          text = req.params["text_#{locale}"]
+          if app.store.translations[name]
+            app.store.translations[name].text = text
+          else
+            app.store.add_translation Translation.new(name:name, file:file, text:text)
+          end
+        end
+
         app.save_translations
 
         keys = app.store.filter_keys(key: /#{key}/)
