@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name     = "iye"
-  s.version  = "1.0.2"
+  s.version  = "1.0.3"
   s.date     = "2013-11-12"
   s.summary  = "I18n Yaml Editor"
   s.email    = "hv@firmafon.dk"

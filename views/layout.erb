@@ -100,8 +100,12 @@
         padding: 20px;
         border-bottom: 1px solid #bbb;
       }
-      .new label {
-        font-weight: bold;
+      .new table input, .new table select {
+        width: 100%;
+      }
+      .new table, .new table td {
+        border: none;
+        vertical-align: top;
       }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
@@ -145,18 +149,29 @@
 
     <div class="new" style="display:none;">
       <form id="newform" action="/create" method="post">
-        <label>Add new translation:</label>
-        <p> File:
-          <select name='file_radix'>
-            <% app.store.file_radixes.each do |radix| %>
-              <option value="<%=radix%>"><%= "#{radix}[locale].yml" %></option>
-            <% end %>
-          </select>
-        </p>
-        <p> Key:  <input name='key' type="text" size="60"/></p>
+        <h3>Add new translation:</h3>
+        <table>
+          <tr>
+            <td>File</td>
+            <td>
+              <select name='file_radix'>
+                <% app.store.file_radixes.each do |radix| %>
+                  <option value="<%=radix%>"><%= "#{radix}[locale].yml" %></option>
+                <% end %>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Key</td>
+            <td><input name='key' type="text" size="60"/></td>
+          </tr>
         <% app.store.locales.each do |locale| %>
-          <p> <%= locale %>: <textarea name='text_<%=locale%>' type="text" cols="60" rows="3"></textarea></p>
-        <% end -%>
+          <tr>
+            <td><%= locale %></td>
+            <td><textarea name='text_<%=locale%>' type="text" cols="60" rows="3"></textarea></td>
+          </tr>
+        <% end %>
+        </table>
         <p><input type="submit" value="Submit"> or <a id='close' href='#'>close</a></p>
       </form>
     </div>
