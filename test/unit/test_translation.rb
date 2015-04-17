@@ -24,6 +24,11 @@ class TestTranslation < Minitest::Test
     assert_nil translation.text
   end
 
+  def test_text_is_array
+    translation = Translation.new(text: %w(a b c))
+    assert_equal %w(a b c), translation.text
+  end
+
   def test_key
     translation = Translation.new(name: "da.session.login")
     assert_equal "session.login", translation.key
