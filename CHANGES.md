@@ -1,4 +1,4 @@
-= Unreleased
+## Unreleased
 
   * Store missing translations as `nil`, so we can use i18n fallbacks.
     
