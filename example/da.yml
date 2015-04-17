@@ -1,7 +1,7 @@
 ---
-:da:
-  :app_name: 
-  :day_names:
+da:
+  app_name: 
+  day_names:
   - søndag
   - mandag
   - tirsdag
