@@ -42,6 +42,11 @@ The source ships with a `config.ru` suitable for development use with `shotgun(1
     
     shotgun -p 5050
 
+To run tests:
+
+    bundle install
+    bundle exec rake
+
 ## Troubleshooting
 
 **``psych.rb:203:in `parse': wrong number of arguments(2 for 1) (ArgumentError)``**
