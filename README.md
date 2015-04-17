@@ -51,3 +51,7 @@ To run tests:
 
 **``psych.rb:203:in `parse': wrong number of arguments(2 for 1) (ArgumentError)``**
 : This is caused by a mismatch of the `psych` in standard library and the gem. The bug is fixed in Ruby 1.9.3-p194.
+
+## Build status
+
+![](https://travis-ci.org/firmafon/iye.svg?branch=master)
