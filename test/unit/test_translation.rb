@@ -29,6 +29,26 @@ class TestTranslation < Minitest::Test
     assert_equal %w(a b c), translation.text
   end
 
+  def test_text_normalize_newlines
+    translation = Translation.new(text: "foo\r\nbar")
+    assert_equal "foo\nbar", translation.text
+  end
+
+  def test_number_of_lines_nil
+    translation = Translation.new(text: nil)
+    assert_equal 1, translation.number_of_lines
+  end
+
+  def test_number_of_lines_single_line
+    translation = Translation.new(text: "foo")
+    assert_equal 1, translation.number_of_lines
+  end
+
+  def test_number_of_lines_multiple_lines
+    translation = Translation.new(text: "foo\nbar\nbaz")
+    assert_equal 3, translation.number_of_lines
+  end
+
   def test_key
     translation = Translation.new(name: "da.session.login")
     assert_equal "session.login", translation.key

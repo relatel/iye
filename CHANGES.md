@@ -7,3 +7,7 @@
   * Store keys as strings instead of symbols, to follow to Rails default.
     
     [Christoph Geschwind <christoph@web-mod.de>]
+
+  * Preserve newlines and use `<textarea>` for input.
+    
+    [Harry Vangberg <hv@firmafon.dk>]

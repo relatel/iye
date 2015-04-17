@@ -9,3 +9,7 @@ da:
   - torsdag
   - fredag
   - lørdag
+  multiline: |-
+    Her er
+    flere
+    linjer.
