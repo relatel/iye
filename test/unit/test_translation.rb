@@ -4,6 +4,26 @@ require "test_helper"
 require "i18n_yaml_editor/translation"
 
 class TestTranslation < Minitest::Test
+  def test_text
+    translation = Translation.new(text: "Some string")
+    assert_equal "Some string", translation.text
+  end
+
+  def test_empty_text_is_nil
+    translation = Translation.new(text: "")
+    assert_nil translation.text
+  end
+
+  def test_text_with_space_is_nil
+    translation = Translation.new(text: " ")
+    assert_nil translation.text
+  end
+
+  def test_text_with_tab_is_nil
+    translation = Translation.new(text: "\t")
+    assert_nil translation.text
+  end
+
   def test_key
     translation = Translation.new(name: "da.session.login")
     assert_equal "session.login", translation.key

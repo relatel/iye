@@ -9,7 +9,11 @@ module I18nYamlEditor
     end
 
     def text
-      @text == "" ? nil : @text
+      return if @text.nil?
+      return if @text.empty?
+      return if @text.match(/\A\s+\z/)
+
+      @text
     end
 
     def key
