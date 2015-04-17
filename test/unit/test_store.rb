@@ -125,24 +125,24 @@ class TestStore < Minitest::Test
   def test_to_yaml
     expected = {
       "/tmp/session.da.yml" => {
-        da: {
-          session: {
-            login: "Log ind",
-            logout: "Log ud"
+        "da" => {
+          "session" => {
+            "login" => "Log ind",
+            "logout" => "Log ud"
           }
         }
       },
       "/tmp/session.en.yml" => {
-        en: {
-          session: {
-            login: "Sign in"
+        "en" => {
+          "session" => {
+            "login" => "Sign in"
           }
         }
       },
       "/tmp/da.yml" => {
-        da: {
-          app_name: "Oversætter",
-          empty_string: nil
+        "da" => {
+          "app_name" => "Oversætter",
+          "empty_string" => nil
         }
       }
     }
