@@ -3,7 +3,7 @@
 require "test_helper"
 require "i18n_yaml_editor/transformation"
 
-class TestTransformation < MiniTest::Unit::TestCase
+class TestTransformation < Minitest::Test
   def test_flatten_hash
     input = {
       da: {
