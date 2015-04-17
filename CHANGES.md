@@ -4,7 +4,7 @@
     
     https://github.com/firmafon/iye/pull/6
      
-    [Jonas Nielsen <jonas@jonasbnielsen.dk]
+    [Jonas Nielsen <jonas@jonasbnielsen.dk>]
 
   * Store keys as strings instead of symbols, to follow to Rails default.
     
