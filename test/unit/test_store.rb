@@ -3,7 +3,7 @@
 require "test_helper"
 require "i18n_yaml_editor/store"
 
-class TestStore < MiniTest::Unit::TestCase
+class TestStore < Minitest::Test
   def test_add_translations
     store = Store.new
     translation = Translation.new(:name => "da.session.login")
@@ -125,23 +125,24 @@ class TestStore < MiniTest::Unit::TestCase
   def test_to_yaml
     expected = {
       "/tmp/session.da.yml" => {
-        da: {
-          session: {
-            login: "Log ind",
-            logout: "Log ud"
+        "da" => {
+          "session" => {
+            "login" => "Log ind",
+            "logout" => "Log ud"
           }
         }
       },
       "/tmp/session.en.yml" => {
-        en: {
-          session: {
-            login: "Sign in"
+        "en" => {
+          "session" => {
+            "login" => "Sign in"
           }
         }
       },
       "/tmp/da.yml" => {
-        da: {
-          app_name: "Oversætter"
+        "da" => {
+          "app_name" => "Oversætter",
+          "empty_string" => nil
         }
       }
     }
@@ -151,6 +152,7 @@ class TestStore < MiniTest::Unit::TestCase
     store.add_translation Translation.new(name: "en.session.login", text: "Sign in", file: "/tmp/session.en.yml")
     store.add_translation Translation.new(name: "da.session.logout", text: "Log ud", file: "/tmp/session.da.yml")
     store.add_translation Translation.new(name: "da.app_name", text: "Oversætter", file: "/tmp/da.yml")
+    store.add_translation Translation.new(name: "da.empty_string", text: "", file: "/tmp/da.yml")
 
     assert_equal expected, store.to_yaml
   end

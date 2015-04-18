@@ -3,7 +3,7 @@
 require "test_helper"
 require "i18n_yaml_editor/key"
 
-class TestKey < MiniTest::Unit::TestCase
+class TestKey < Minitest::Test
   def test_category
     key = Key.new(name: "session.login")
     assert_equal "session", key.category

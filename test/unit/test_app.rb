@@ -3,5 +3,5 @@
 require "test_helper"
 require "i18n_yaml_editor/app"
 
-class TestApp < MiniTest::Unit::TestCase
+class TestApp < Minitest::Test
 end

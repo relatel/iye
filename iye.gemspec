@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name     = "iye"
-  s.version  = "1.0.3"
-  s.date     = "2013-11-12"
+  s.version  = "1.1.0"
+  s.date     = "2015-04-17"
   s.summary  = "I18n Yaml Editor"
   s.email    = "hv@firmafon.dk"
   s.homepage = "http://github.com/firmafon/iye"
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "views/layout.erb",
     "views/categories.html.erb",
     "views/translations.html.erb"
+    "views/new.html.erb"
   ]
   s.test_files = [
     "test/test_helper.rb",

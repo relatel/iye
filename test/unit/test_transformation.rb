@@ -3,14 +3,14 @@
 require "test_helper"
 require "i18n_yaml_editor/transformation"
 
-class TestTransformation < MiniTest::Unit::TestCase
+class TestTransformation < Minitest::Test
   def test_flatten_hash
     input = {
-      da: {
-        session: {login: "Log ind", logout: "Log ud"}
+      "da" => {
+        "session" => {"login" => "Log ind", "logout" => "Log ud"}
       },
-      en: {
-        session: {login: "Log in", logout: "Log out"}
+      "en" => {
+        "session" => {"login" => "Log in", "logout" => "Log out"}
       }
     }
     expected = {
@@ -31,11 +31,11 @@ class TestTransformation < MiniTest::Unit::TestCase
       "en.session.logout" => "Log out"
     }
     expected = {
-      da: {
-        session: {login: "Log ind", logout: "Log ud"}
+      "da" => {
+        "session" => {"login" => "Log ind", "logout" => "Log ud"}
       },
-      en: {
-        session: {login: "Log in", logout: "Log out"}
+      "en" => {
+        "session" => {"login" => "Log in", "logout" => "Log out"}
       }
     }
 
