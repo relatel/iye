@@ -23,6 +23,10 @@
         	   -moz-box-shadow: 0 8px 6px -6px #ccc;
         	        box-shadow: 0 8px 6px -6px #ccc;
       }
+      .header #logo {
+        text-decoration: none;
+        color: black;
+      }
 
       .header h1, .header form {
         display: inline;
@@ -113,7 +117,7 @@
 
   <body>
     <div class="header">
-      <h1>IYE</h1>
+      <h1><a id='logo' href='/'>IYE</a></h1>
 
       <form action="/" method="get">
         <label>
@@ -181,7 +185,7 @@
     </div>
 
     <script type="text/javascript">
-      $('#new').click(function() { $('.new').show(); });
+      $('#new').click(function() { window.location = "/new?key=<%= filters['key'] %>" });
       $('#close').click(function() { $('.new').hide(); });
     </script>
   </body>

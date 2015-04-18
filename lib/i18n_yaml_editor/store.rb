@@ -33,7 +33,7 @@ module I18nYamlEditor
       self.translations[translation.name] = translation
 
       add_locale(translation.locale)
-      add_file_radix(translation.file.sub("#{translation.locale}.yml", ''))
+      add_file_radix(translation.file.sub("#{translation.locale}.yml", '')) if translation.file
 
       key = (self.keys[translation.key] ||= Key.new(name: translation.key))
       key.add_translation(translation)
