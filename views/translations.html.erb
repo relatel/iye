@@ -30,6 +30,7 @@
             <% end %>
           </table>
         </td>
+        <td><a class='delete' href="#">delete</a></td>
       </tr>
     <% end %>
   </table>
@@ -50,5 +51,12 @@
   $('.header .pull-right').append("<button id='save-on-top'>Save</button>")
   $('#save-on-top').click(function() {
     $('#updateform').submit();
+  });
+  $('a.delete').click(function(e){
+    e.preventDefault();
+    var keyrow = $(e.target).parents('.translation');
+    var values = $(keyrow).find('textarea, input[type=text]');
+    values.val('__delete__');
+    keyrow.hide();
   });
 </script>
