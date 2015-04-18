@@ -38,6 +38,14 @@
     <input type="submit" id="save" value="Save" />
   </p>
 </form>
+
+<% if keys.empty? %>
+  <h3>
+    Could not find any keys for your search.
+    <a href="/new?key=<%= filters['key'] %>">Create a new one</a>
+  </h3>
+<% end %>
+
 <script type="text/javascript">
   $('.header .pull-right').append("<button id='save-on-top'>Save</button>")
   $('#save-on-top').click(function() {
