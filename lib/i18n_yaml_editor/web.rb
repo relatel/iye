@@ -41,7 +41,11 @@ module I18nYamlEditor
       on post, "update" do
         if translations = req["translations"]
           translations.each {|name, text|
-            app.store.translations[name].text = text
+            if text == '__delete__'
+              app.store.translations.delete(name)
+            else
+              app.store.translations[name].text = text
+            end
           }
           app.save_translations
         end
