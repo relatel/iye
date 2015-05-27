@@ -55,6 +55,9 @@ module I18nYamlEditor
       end
       if options.has_key?(:complete)
         filters << lambda {|k| k.complete? == options[:complete]}
+        if options[:missing_locale] != "All"
+          filters << lambda {|k| !k.has_translation_for?(options[:missing_locale]) }
+        end
       end
       if options.has_key?(:empty)
         filters << lambda {|k| k.empty? == options[:empty]}
