@@ -1,7 +1,7 @@
-# IYE
+# Translator
 
-IYE - short for I18N YAML Editor - makes it easy to translate your Rails I18N files and 
-keep them up to date. Unlike a lot of other tools in this space, IYE works directly on the
+Translator is based on [IYE](https://github.com/firmafon/iye).
+Translator makes it easy to translate your Rails I18N files and keep them up to date.
 YAML files instead of keeping a separate database in sync. This has several benefits:
 
 * Branching and diffing is trivial
@@ -9,40 +9,32 @@ YAML files instead of keeping a separate database in sync. This has several bene
   YAML files directly
 * If your YAML files are organized in subfolders, this structure is kept intact
 
-![IYE yaml editor](http://f.cl.ly/items/2K2V2i3N2R2X1L2F051F/Sk%C3%A6rmbillede%202012-09-18%20kl.%2013.36.07.png)
+![Translator](https://cloud.githubusercontent.com/assets/2951339/10191908/9e6cd5a8-6778-11e5-8824-f512d394ca25.png)
 
 ## Prerequisites
 
-You need to understand a few things about IYE for it to make sense, mainly:
+You need to understand a few things about Translator for it to make sense, mainly:
 
-* IYE does not create new keys - keys must exist for at least one locale in the YAML files
-* IYE does not create new locales - at least one key must exist for each locale in the YAML files
+* Translator does not create new keys - keys must exist for at least one locale in the YAML files
+* Translator does not create new locales - at least one key must exist for each locale in the YAML files
 
 ## Workflow
 
-1. Install IYE:
-      
-        $ gem install iye
+1. Install Translator:
 
-2. Navigate to the folder containing your YAML files and start IYE:
-    
-        $ iye .
+        $ git clone git@github.com:Sage/translator.git
+        $ cd translator
+        $ gem build translator.gemspec
+        $ gem install translator-1.1.1.gem
 
-    At this point IYE loads all translation keys for all locales, and creates any
-    keys that might be missing for existing locales.
-  
+2. The `translator` executable is now available, use it wherever you want.
+
+        $ translator path/to/your/i18n/locales [port]
+
+    At this point Translator loads all translation keys for all locales, and creates any
+    keys that might be missing for existing locales, the default port is 5050
+
 3. Point browser at [http://localhost:5050](http://localhost:5050)
 4. Make changes and press 'Save' - each time you do this, all the keys will be
-   written to their original YAML files, which you can confirm e.g. by using
-   `git diff`.
-
-## Development
-
-The source ships with a `config.ru` suitable for development use with `shotgun(1)`:
-    
-    shotgun -p 5050
-
-## Troubleshooting
-
-**``psych.rb:203:in `parse': wrong number of arguments(2 for 1) (ArgumentError)``**
-: This is caused by a mismatch of the `psych` in standard library and the gem. The bug is fixed in Ruby 1.9.3-p194.
+   written to their original YAML files.
+5. Review your changes before committing files, e.g. by using `git diff`.

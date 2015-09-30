@@ -37,7 +37,7 @@ class TestTransformation < MiniTest::Unit::TestCase
       en: {
         session: {login: "Log in", logout: "Log out"}
       }
-    }
+    }.with_indifferent_access
 
     assert_equal expected, Transformation.nest_hash(input)
   end

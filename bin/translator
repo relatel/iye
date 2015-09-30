@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "i18n_yaml_editor"
+
+translator = I18nYamlEditor::App.new(*ARGV)
+translator.start
