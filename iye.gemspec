@@ -11,16 +11,17 @@ Gem::Specification.new do |s|
   s.files    = [
     "README.md",
     "Rakefile",
-		"iye.gemspec",
+    "iye.gemspec",
     "bin/iye",
-		"lib/i18n_yaml_editor.rb",
-		"lib/i18n_yaml_editor/app.rb",
-		"lib/i18n_yaml_editor/category.rb",
-		"lib/i18n_yaml_editor/key.rb",
-		"lib/i18n_yaml_editor/store.rb",
-		"lib/i18n_yaml_editor/transformation.rb",
-		"lib/i18n_yaml_editor/translation.rb",
-		"lib/i18n_yaml_editor/web.rb",
+    "lib/i18n_yaml_editor.rb",
+    "lib/i18n_yaml_editor/app.rb",
+    "lib/i18n_yaml_editor/category.rb",
+    "lib/i18n_yaml_editor/core_ext.rb",
+    "lib/i18n_yaml_editor/key.rb",
+    "lib/i18n_yaml_editor/store.rb",
+    "lib/i18n_yaml_editor/transformation.rb",
+    "lib/i18n_yaml_editor/translation.rb",
+    "lib/i18n_yaml_editor/web.rb",
     "views/layout.erb",
     "views/categories.html.erb",
     "views/translations.html.erb"
@@ -34,6 +35,7 @@ Gem::Specification.new do |s|
     "test/unit/test_transformation.rb",
     "test/unit/test_translation.rb"
   ]
+  s.add_dependency "activesupport"
   s.add_dependency "cuba", ">= 3"
   s.add_dependency "tilt", ">= 1.3"
   s.add_dependency "psych", ">= 1.3.4"

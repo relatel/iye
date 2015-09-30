@@ -25,9 +25,9 @@ module I18nYamlEditor
           keys = key.split(".")
           keys.each_with_index {|k, idx|
             if keys.size - 1 == idx
-              sub_result[k.to_sym] = value
+              sub_result[k] = value
             else
-              sub_result = (sub_result[k.to_sym] ||= {})
+              sub_result = (sub_result[k] ||= {})
             end
           }
         rescue => e
