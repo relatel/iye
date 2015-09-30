@@ -3,7 +3,7 @@
 require "test_helper"
 require "i18n_yaml_editor/translation"
 
-class TestTranslation < MiniTest::Unit::TestCase
+class TestTranslation < Minitest::Test
   def test_key
     translation = Translation.new(name: "da.session.login")
     assert_equal "session.login", translation.key
