@@ -1,4 +1,4 @@
-# Translator
+# Translator [ ![Codeship Status for Sage/translator](https://codeship.com/projects/8f0b6800-4996-0133-8527-667b3b8a5886/status?branch=master)](https://codeship.com/projects/105641)
 
 Translator is based on [IYE](https://github.com/firmafon/iye).
 Translator makes it easy to translate your Rails I18N files and keep them up to date.
