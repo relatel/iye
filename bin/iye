@@ -2,5 +2,5 @@
 
 require "i18n_yaml_editor"
 
-iye = I18nYamlEditor::App.new(ARGV[0])
+iye = I18nYamlEditor::App.new(*ARGV)
 iye.start

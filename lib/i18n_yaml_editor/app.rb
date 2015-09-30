@@ -9,8 +9,9 @@ require "i18n_yaml_editor/store"
 
 module I18nYamlEditor
   class App
-    def initialize path
+    def initialize(path, port = 5050)
       @path = File.expand_path(path)
+      @port = port
       @store = Store.new
       I18nYamlEditor.app = self
     end
@@ -25,7 +26,7 @@ module I18nYamlEditor
       store.create_missing_keys
 
       $stdout.puts " * Starting web editor at port 5050"
-      Rack::Server.start :app => Web, :Port => 5050
+      Rack::Server.start :app => Web, :Port => (@port || 5050)
     end
 
     def load_translations

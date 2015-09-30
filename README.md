@@ -21,16 +21,18 @@ You need to understand a few things about IYE for it to make sense, mainly:
 ## Workflow
 
 1. Install IYE:
-      
-        $ gem install iye
+
+        $ git clone git@github.com:Sage/iye.git
+        $ cd iye
+        $ bundle install
 
 2. Navigate to the folder containing your YAML files and start IYE:
-    
-        $ iye .
+
+        $ bin/iye path/to/i18n/locales [port]
 
     At this point IYE loads all translation keys for all locales, and creates any
-    keys that might be missing for existing locales.
-  
+    keys that might be missing for existing locales, the default port is 5050
+
 3. Point browser at [http://localhost:5050](http://localhost:5050)
 4. Make changes and press 'Save' - each time you do this, all the keys will be
    written to their original YAML files, which you can confirm e.g. by using
@@ -39,7 +41,7 @@ You need to understand a few things about IYE for it to make sense, mainly:
 ## Development
 
 The source ships with a `config.ru` suitable for development use with `shotgun(1)`:
-    
+
     shotgun -p 5050
 
 ## Troubleshooting
