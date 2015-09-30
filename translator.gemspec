@@ -39,4 +39,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'cuba', '>= 3'
   s.add_dependency 'tilt', '>= 1.3'
   s.add_dependency 'psych', '>= 1.3.4'
+
+  s.add_development_dependency 'rake'
 end
