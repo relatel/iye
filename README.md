@@ -38,7 +38,7 @@ You need to understand a few things about IYE for it to make sense, mainly:
 
 ## Development
 
-The source ships with a `config.ru` suitable for development use with `shotgun(1)`:
+The source ships with a `config.ru` suitable for development use with [shotgun](https://github.com/rtomayko/shotgun):
     
     shotgun -p 5050
 
