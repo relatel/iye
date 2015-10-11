@@ -19,7 +19,7 @@
                 <td class="locale"><%= translation.locale %>:</td>
                 <td class="value">
                   <% if translation.text.nil? || translation.text.is_a?(String) %>
-                    <textarea cols=80 rows=<%= translation.number_of_lines %> name="translations[<%= translation.name %>]"><%= Rack::Utils.escape_html translation.text %></textarea>
+                    <textarea cols=80 rows=<%= translation.number_of_lines %> name="translations[<%= translation.name %>]" dir="auto"><%= Rack::Utils.escape_html translation.text %></textarea>
                   <% else %>
                     [read only]
                     <%= translation.text.class.name %>
