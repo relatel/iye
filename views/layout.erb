@@ -118,9 +118,9 @@
 
   <body>
     <div class="header">
-      <h1><a id='logo' href='/'>IYE</a></h1>
+      <h1><a id='logo' href='<%= root_path %>'>IYE</a></h1>
 
-      <form action="/" method="get">
+      <form action="<%= root_path %>" method="get">
         <label>
           Key:
           <input name="filters[key]" type="text" value="<%= filters["key"] %>" />
@@ -143,12 +143,12 @@
         <input type="submit" value="Filter" />
       </form>
 
-      <form action="/" method="get">
+      <form action="<%= root_path %>" method="get">
         <input type="submit" value="Clear" />
       </form>
 
       <div class="pull-right">
-        <form action="/new" method="get">
+        <form action="<%= root_path %>new" method="get">
           <input type="hidden" name="key" value="<%= filters['key'] %>" />
           <input type="submit" value="New" />
         </form>

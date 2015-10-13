@@ -14,6 +14,10 @@ module I18nYamlEditor
 
     use Rack::ShowExceptions
 
+    def root_path
+      "#{req.script_name}/"
+    end
+
     def app
       env['iye.app'] || I18nYamlEditor.app
     end
