@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "i18n_yaml_editor"
+require 'i18n_yaml_editor'
 
 iye = I18nYamlEditor::App.new(ARGV[0])
 iye.start
