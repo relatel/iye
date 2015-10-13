@@ -15,7 +15,14 @@ module I18nYamlEditor
     use Rack::ShowExceptions
 
     def app
-      I18nYamlEditor.app
+      env['iye.app'] || I18nYamlEditor.app
+    end
+
+    def self.app_stack(iye_app)
+      Rack::Builder.new do
+        use AppEnv, iye_app
+        run Web
+      end
     end
 
     define do
@@ -81,6 +88,19 @@ module I18nYamlEditor
 
         categories = app.store.categories.sort
         res.write view("categories.html", categories: categories, filters: {})
+      end
+    end
+
+    class AppEnv
+      def initialize(app, iye_app)
+        @app = app
+        @iye_app = iye_app
+      end
+
+      def call(env)
+        env['iye.app'] = @iye_app
+
+        @app.call(env)
       end
     end
   end
