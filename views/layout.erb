@@ -148,46 +148,15 @@
       </form>
 
       <div class="pull-right">
-        <input type="submit" id="new" value="New" />
+        <form action="/new" method="get">
+          <input type="hidden" name="key" value="<%= filters['key'] %>" />
+          <input type="submit" value="New" />
+        </form>
       </div>
-    </div>
-
-    <div class="new" style="display:none;">
-      <form id="newform" action="/create" method="post">
-        <h3>Add new translation:</h3>
-        <table>
-          <tr>
-            <td>File</td>
-            <td>
-              <select name='file_radix'>
-                <% app.store.file_radixes.each do |radix| %>
-                  <option value="<%=radix%>"><%= "#{radix}[locale].yml" %></option>
-                <% end %>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td>Key</td>
-            <td><input name='key' type="text" size="60"/></td>
-          </tr>
-        <% app.store.locales.each do |locale| %>
-          <tr>
-            <td><%= locale %></td>
-            <td><textarea name='text_<%=locale%>' type="text" cols="60" rows="3"></textarea></td>
-          </tr>
-        <% end %>
-        </table>
-        <p><input type="submit" value="Submit"> or <a id='close' href='#'>close</a></p>
-      </form>
     </div>
 
     <div class="content">
       <%= content %>
     </div>
-
-    <script type="text/javascript">
-      $('#new').click(function() { window.location = "/new?key=<%= filters['key'] %>" });
-      $('#close').click(function() { $('.new').hide(); });
-    </script>
   </body>
 </html>
