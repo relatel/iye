@@ -1,6 +1,6 @@
 ---
 da:
-  app_name:
+  app_name: 
   day_names:
   - søndag
   - mandag
@@ -9,8 +9,7 @@ da:
   - torsdag
   - fredag
   - lørdag
-  multiline: ! 'Her er
-
+  multiline: |-
+    Her er
     flere
-
-    linjer.'
+    linjer.

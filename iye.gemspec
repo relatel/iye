@@ -1,4 +1,3 @@
-# coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'i18n_yaml_editor/version'
@@ -18,7 +17,8 @@ Gem::Specification.new do |s|
   s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency "cuba", ">= 3"
+  s.add_dependency "hobbit", "~> 0.6.0"
+  s.add_dependency "hobbit-contrib", "~> 0.7.1"
   s.add_dependency "tilt", ">= 1.3"
   s.add_dependency "psych", ">= 1.3.4"
 

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module I18nYamlEditor
   class TransformationError < StandardError; end
 
@@ -10,7 +8,7 @@ module I18nYamlEditor
         if value.is_a?(Hash)
           flatten_hash value, child_ns, tree
         else
-          tree[child_ns.join(".")] = value
+          tree[child_ns.join('.')] = value
         end
       }
       tree

@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module I18nYamlEditor
   class Translation
     attr_accessor :name, :file
@@ -22,11 +20,11 @@ module I18nYamlEditor
     end
 
     def key
-      @key ||= self.name.split(".")[1..-1].join(".")
+      @key ||= self.name.split('.')[1..-1].join('.')
     end
 
     def locale
-      @locale ||= self.name.split(".").first
+      @locale ||= self.name.split('.').first
     end
 
     def number_of_lines

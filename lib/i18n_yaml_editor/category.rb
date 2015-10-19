@@ -1,6 +1,4 @@
-# encoding: utf-8
-
-require "set"
+require 'set'
 
 module I18nYamlEditor
   class Category

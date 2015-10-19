@@ -7,19 +7,19 @@
         <td>
           <select name='file_radix'>
             <% app.store.file_radixes.each do |radix| %>
-              <option value="<%=radix%>"><%= "#{radix}[locale].yml" %></option>
+              <option value="<%=radix%>"><%= "#{radix.gsub(app.base_path + '/', '')}[locale].yml" %></option>
             <% end %>
           </select>
         </td>
       </tr>
       <tr>
         <td>Key</td>
-        <td><input name='key' type="text" size="60" value="<%= req.params['key']%>"/></td>
+        <td><input name='key' type="text" size="60" autofocus onfocus="this.value != '' && (this.value = this.value + '.')" value="<%= ERB::Util.html_escape(String(request.params['key']).gsub(/^\^/, '')) %>"/></td>
       </tr>
     <% app.store.locales.each do |locale| %>
       <tr>
         <td><%= locale %></td>
-        <td><textarea name='text_<%=locale%>' type="text" cols="60" rows="3"></textarea></td>
+        <td><textarea name='text_<%= locale %>' type="text" cols="60" rows="3"></textarea></td>
       </tr>
     <% end %>
     </table>

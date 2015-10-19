@@ -1,6 +1,4 @@
-# encoding: utf-8
-
-require "set"
+require 'set'
 
 module I18nYamlEditor
   class Key
@@ -16,7 +14,7 @@ module I18nYamlEditor
     end
 
     def category
-      @category ||= self.name.split(".").first
+      @category ||= self.name.split('.').first
     end
 
     def complete?

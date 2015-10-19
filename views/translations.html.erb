@@ -1,6 +1,6 @@
 <form id="updateform" action="<%= root_path %>update" method="post">
   <% filters.each do |filter, value| %>
-    <input name="filters[<%= filter %>" type="hidden" value="<%= value %>"/>
+    <input name="filters[<%= filter %>]" type="hidden" value="<%= value %>"/>
   <% end %>
 
   <table class="keys" cellspacing="0">
@@ -30,13 +30,15 @@
             <% end %>
           </table>
         </td>
-        <td><a class='delete' href="#">delete</a></td>
+        <td width="1%">
+          <a href="<%= root_path %>keys/<%= ERB::Util.html_escape name %>/destroy" class='btn btn-danger btn-small delete-button'>Delete</a>
+        </td>
       </tr>
     <% end %>
   </table>
 
   <p class="pull-right">
-    <input type="submit" id="save" value="Save" />
+    <input class="btn btn-primary" type="submit" id="save" value="Save Translations" />
   </p>
 </form>
 
@@ -46,17 +48,3 @@
     <a href="<%= root_path %>new?key=<%= filters['key'] %>">Create a new one</a>
   </h3>
 <% end %>
-
-<script type="text/javascript">
-  $('.header .pull-right').append("<button id='save-on-top'>Save</button>")
-  $('#save-on-top').click(function() {
-    $('#updateform').submit();
-  });
-  $('a.delete').click(function(e){
-    e.preventDefault();
-    var keyrow = $(e.target).parents('.translation');
-    var values = $(keyrow).find('textarea, input[type=text]');
-    values.val('__delete__');
-    keyrow.hide();
-  });
-</script>
