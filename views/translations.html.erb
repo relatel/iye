@@ -5,7 +5,7 @@
 
   <table class="keys" cellspacing="0">
     <% keys.each do |name, key| %>
-      <tr class="translation 
+      <tr class="translation
         <%= "incomplete" unless key.complete? %>
         <%= "empty" if key.empty? %>
         ">
@@ -30,15 +30,33 @@
             <% end %>
           </table>
         </td>
+        <td><a class='delete' href="#">delete</a></td>
       </tr>
     <% end %>
   </table>
 
-  <p class="pull-right"><input type="submit" id="save" value="Save" /></p>
+  <p class="pull-right">
+    <input type="submit" id="save" value="Save" />
+  </p>
 </form>
+
+<% if keys.empty? %>
+  <h3>
+    Could not find any keys for your search.
+    <a href="/new?key=<%= filters['key'] %>">Create a new one</a>
+  </h3>
+<% end %>
+
 <script type="text/javascript">
-  $('.header .pull-right').html("<button id='save-on-top'>Save</button>")
+  $('.header .pull-right').append("<button id='save-on-top'>Save</button>")
   $('#save-on-top').click(function() {
     $('#updateform').submit();
+  });
+  $('a.delete').click(function(e){
+    e.preventDefault();
+    var keyrow = $(e.target).parents('.translation');
+    var values = $(keyrow).find('textarea, input[type=text]');
+    values.val('__delete__');
+    keyrow.hide();
   });
 </script>

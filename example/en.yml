@@ -1,7 +1,7 @@
 ---
 en:
-  app_name: 
-  day_names: 
-  multiline: |-
-    Multiple
-    lines.
+  app_name:
+  day_names:
+  multiline: ! 'Multiple
+
+    lines.'

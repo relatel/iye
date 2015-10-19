@@ -23,7 +23,8 @@ Gem::Specification.new do |s|
 		"lib/i18n_yaml_editor/web.rb",
     "views/layout.erb",
     "views/categories.html.erb",
-    "views/translations.html.erb"
+    "views/translations.html.erb",
+    "views/new.html.erb"
   ]
   s.test_files = [
     "test/test_helper.rb",

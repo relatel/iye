@@ -41,7 +41,11 @@ module I18nYamlEditor
       on post, "update" do
         if translations = req["translations"]
           translations.each {|name, text|
-            app.store.translations[name].text = text
+            if text == '__delete__'
+              app.store.translations.delete(name)
+            else
+              app.store.translations[name].text = text
+            end
           }
           app.save_translations
         end
@@ -51,6 +55,32 @@ module I18nYamlEditor
 
       on get, "debug" do
         res.write partial("debug.html", translations: app.store.translations.values)
+      end
+
+      on get, "new" do
+        res.write view("new.html", filters: {})
+      end
+
+      on post, "create" do
+        key  = req.params["key"]
+        locale = req.params["locale"]
+        file_radix = req.params["file_radix"]
+
+        app.store.locales.each do |locale|
+          name = "#{locale}.#{key}"
+          file = "#{file_radix}#{locale}.yml"
+          text = req.params["text_#{locale}"]
+          if app.store.translations[name]
+            app.store.translations[name].text = text
+          else
+            app.store.add_translation Translation.new(name:name, file:file, text:text)
+          end
+        end
+
+        app.save_translations
+
+        categories = app.store.categories.sort
+        res.write view("categories.html", categories: categories, filters: {})
       end
     end
   end

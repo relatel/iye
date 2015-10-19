@@ -23,6 +23,10 @@
         	   -moz-box-shadow: 0 8px 6px -6px #ccc;
         	        box-shadow: 0 8px 6px -6px #ccc;
       }
+      .header #logo {
+        text-decoration: none;
+        color: black;
+      }
 
       .header h1, .header form {
         display: inline;
@@ -32,7 +36,7 @@
       .header h1 {
         margin-right: 2em;
       }
-      
+
       .pull-right {
         float:right;
         padding-right:20px;
@@ -94,13 +98,27 @@
       table.categories tr.category.incomplete .key .text {
         border-bottom: 3px solid #f33;
       }
+
+      /* NEW TRANSLATION FORM */
+
+      .new {
+        padding: 20px;
+        border-bottom: 1px solid #bbb;
+      }
+      .new table input, .new table select {
+        width: 100%;
+      }
+      .new table, .new table td {
+        border: none;
+        vertical-align: top;
+      }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
   </head>
 
   <body>
     <div class="header">
-      <h1>IYE</h1>
+      <h1><a id='logo' href='/'>IYE</a></h1>
 
       <form action="/" method="get">
         <label>
@@ -128,13 +146,48 @@
       <form action="/" method="get">
         <input type="submit" value="Clear" />
       </form>
-      
+
       <div class="pull-right">
+        <input type="submit" id="new" value="New" />
       </div>
+    </div>
+
+    <div class="new" style="display:none;">
+      <form id="newform" action="/create" method="post">
+        <h3>Add new translation:</h3>
+        <table>
+          <tr>
+            <td>File</td>
+            <td>
+              <select name='file_radix'>
+                <% app.store.file_radixes.each do |radix| %>
+                  <option value="<%=radix%>"><%= "#{radix}[locale].yml" %></option>
+                <% end %>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Key</td>
+            <td><input name='key' type="text" size="60"/></td>
+          </tr>
+        <% app.store.locales.each do |locale| %>
+          <tr>
+            <td><%= locale %></td>
+            <td><textarea name='text_<%=locale%>' type="text" cols="60" rows="3"></textarea></td>
+          </tr>
+        <% end %>
+        </table>
+        <p><input type="submit" value="Submit"> or <a id='close' href='#'>close</a></p>
+      </form>
     </div>
 
     <div class="content">
       <%= content %>
     </div>
+
+    <script type="text/javascript">
+      $('#new').click(function() { window.location = "/new?key=<%= filters['key'] %>" });
+      $('#close').click(function() { $('.new').hide(); });
+    </script>
   </body>
 </html>
