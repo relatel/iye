@@ -10,13 +10,7 @@ end
 require 'i18n_yaml_editor'
 require 'rack'
 
-iye = I18nYamlEditor::App.new(ARGV[0])
-
-$stdout.puts " * Loading translations from #{iye.full_path}"
-iye.load_translations
-
-$stdout.puts " * Creating missing translations"
-iye.store.create_missing_keys
-
+iye_app = I18nYamlEditor::App.new(source_folder)
+$stdout.puts " * Loading translations from #{iye_app.full_path}"
 $stdout.puts " * Starting web editor at port 5050"
-Rack::Server.start :app => I18nYamlEditor::Web.app_stack(iye), :Port => 5050
+Rack::Server.start :app => I18nYamlEditor::Web.app_stack(iye_app), :Port => 5050

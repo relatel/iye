@@ -101,6 +101,7 @@ module I18nYamlEditor
         translation = Translation.new(name: name, text: text, file: file)
         add_translation(translation)
       }
+      create_missing_keys
     end
 
     def to_yaml

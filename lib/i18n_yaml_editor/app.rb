@@ -15,6 +15,8 @@ module I18nYamlEditor
       @rel_path = path
       @full_path = File.expand_path(path, @base_path)
       @store = Store.new
+
+      load_translations
     end
 
     def load_translations
