@@ -25,6 +25,7 @@ module I18nYamlEditor
       store.create_missing_keys
 
       $stdout.puts " * Starting web editor at port 5050"
+      Rack::Utils.key_space_limit = 131072 # 2 times the default
       Rack::Server.start :app => Web, :Port => 5050
     end
 
@@ -39,7 +40,7 @@ module I18nYamlEditor
     def save_translations
       files = store.to_yaml
       files.each {|file, yaml|
-        File.open(file, "w", encoding: "utf-8") {|f| f << yaml.to_yaml}
+        File.open(file, "w", encoding: "utf-8") {|f| f << yaml.to_yaml({:line_width => -1})}
       }
     end
   end
