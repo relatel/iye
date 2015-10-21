@@ -75,16 +75,7 @@ module I18nYamlEditor
         missing_locales = self.locales - key.translations.map(&:locale)
         missing_locales.each {|locale|
           translation = key.translations.first
-
-          # this just replaces the locale part of the file name. should
-          # be possible to do in a simpler way. gsub, baby.
-          path = Pathname.new(translation.file)
-          dirs, file = path.split
-          file = file.to_s.split(".")
-          file[-2] = locale
-          file = file.join(".")
-          path = dirs.join(file).to_s
-
+          path = replace_locale_in_path(translation.locale, locale, translation.file)
           new_translation = Translation.new(name: "#{locale}.#{key.name}", file: path)
           add_translation(new_translation)
         }

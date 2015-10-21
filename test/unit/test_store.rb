@@ -102,6 +102,22 @@ class TestStore < Minitest::Test
     assert_nil translation.text
   end
 
+  def test_create_missing_keys_uses_replace_locale_in_path_transformation
+    calls = []
+    @store.define_singleton_method(:replace_locale_in_path) do |*args|
+      calls << args
+      "/tmp/special_path/en.yml"
+    end
+
+    @store.add_translation Translation.new(name: "da.app_name", text: "Oversætter", file: "/tmp/da.yml")
+    @store.add_locale("en")
+    @store.create_missing_keys
+
+    assert_equal(1, calls.count)
+    assert_equal(['da', 'en', '/tmp/da.yml'], calls.first)
+    assert_equal "/tmp/special_path/en.yml", @store.translations["en.app_name"].file
+  end
+
   def test_from_yaml
     input = {
       da: {
