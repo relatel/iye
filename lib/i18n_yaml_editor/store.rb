@@ -82,8 +82,8 @@ module I18nYamlEditor
 
           # this just replaces the locale part of the file name
           path = translation.file
-              .sub(/#{translation.locale}\.yml/, "#{locale}.yml")
-              .sub(/\/#{translation.locale}/, "/#{locale}")
+              .sub(/(\/|\.)#{translation.locale}\.yml$/, "\\1#{locale}.yml")
+              .sub(/\/#{translation.locale}([^\/]+)\.yml$/, "/#{locale}\\1.yml")
 
           new_translation = Translation.new(name: "#{locale}.#{key.name}", file: path)
           add_translation(new_translation)
