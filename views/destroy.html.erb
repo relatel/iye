@@ -1,0 +1,11 @@
+<form action="<%= root_path %>keys/<%= key.name %>" method="post" style="max-width: 500px; margin: 50px auto; text-align: center">
+  <input type="hidden" name="_method" value="delete" />
+
+  <p>
+    Please confirm the deletion of key <strong><%= key.name %></strong> with <%= key.translations.count %> translations.
+  </p>
+
+  <input class="btn btn-danger" type="submit" value="Yes, really delete" />
+  <a href="#" onclick="history.back(); return false;">No, go back</a>
+
+</form>

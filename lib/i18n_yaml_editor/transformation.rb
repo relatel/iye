@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module I18nYamlEditor
   class TransformationError < StandardError; end
 
@@ -10,7 +8,7 @@ module I18nYamlEditor
         if value.is_a?(Hash)
           flatten_hash value, child_ns, tree
         else
-          tree[child_ns.join(".")] = value
+          tree[child_ns.join('.')] = value
         end
       }
       tree
@@ -37,5 +35,12 @@ module I18nYamlEditor
       result
     end
     module_function :nest_hash
+
+    def sub_locale_in_path(path, from_locale, to_locale)
+      path
+          .sub(/(\/|\.)#{from_locale}\.yml$/, "\\1#{to_locale}.yml")
+          .sub(/\/#{from_locale}([^\/]+)\.yml$/, "/#{to_locale}\\1.yml")
+    end
+    module_function :sub_locale_in_path
   end
 end

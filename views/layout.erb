@@ -1,116 +1,22 @@
 <html>
   <head>
     <title>IYE</title>
-    <style>
-      /* GENERAL */
-      body {
-        font-family: sans-serif;
-        font-size: 0.7em;
-        margin: 0;
-        margin-top: 60px;
-      }
-
-      /* HEADER */
-      .header {
-        margin: 0;
-        padding: 1em;
-        background-color: #fff;
-        z-index: 999 !important;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        -webkit-box-shadow: 0 8px 6px -6px #ccc;
-        	   -moz-box-shadow: 0 8px 6px -6px #ccc;
-        	        box-shadow: 0 8px 6px -6px #ccc;
-      }
-
-      .header h1, .header form {
-        display: inline;
-        vertical-align: middle;
-      }
-
-      .header h1 {
-        margin-right: 2em;
-      }
-      
-      .pull-right {
-        float:right;
-        padding-right:20px;
-      }
-
-      /* TRANSLATIONS */
-      table.keys {
-        width: 100%;
-      }
-
-      table.keys .key {
-        padding-left: 0.5em;
-      }
-
-      table.keys tr.translation > td {
-        border-bottom: 1px solid #bbb;
-      }
-
-      table.keys tr.translation.incomplete .key .text {
-        border-bottom: 3px solid #f33;
-      }
-
-      table.keys tr.translation.empty .key .text {
-        border-bottom: 3px solid #33f;
-      }
-
-      table.keys td.key {
-        width: 300px;
-      }
-
-      table.locales td.value textarea {
-        padding: 3px;
-        width: 600px;
-      }
-
-      /* CATEGORIES */
-
-      table.categories {
-        width: 100%;
-      }
-
-      table.categories .key {
-        padding-left: 0.5em;
-      }
-
-      table.categories tr.category a {
-        text-decoration: none;
-      }
-
-      table.categories tr.category > td {
-        border-bottom: 1px solid #bbb;
-      }
-
-      table.categories tr.category > td {
-        padding-top: 1em;
-        padding-bottom: 1em;
-      }
-
-      table.categories tr.category.incomplete .key .text {
-        border-bottom: 3px solid #f33;
-      }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <link rel="stylesheet" media="screen" href="<%= root_path %>stylesheets/iye.css" />
   </head>
 
   <body>
     <div class="header">
-      <h1>IYE</h1>
+      <h1><a id='logo' href='<%= root_path %>'>IYE</a></h1>
 
-      <form action="/" method="get">
+      <form action="<%= root_path %>" method="get">
         <label>
           Key:
-          <input name="filters[key]" type="text" value="<%= filters["key"] %>" />
+          <input name="filters[key]" type="text" value="<%= ERB::Util.html_escape filters["key"] %>" />
         </label>
 
         <label>
           Text:
-          <input name="filters[text]" type="text" value="<%= filters["text"] %>" />
+          <input name="filters[text]" type="text" value="<%= ERB::Util.html_escape filters["text"] %>" />
         </label>
 
         <label>
@@ -122,19 +28,20 @@
           Empty
         </label>
 
-        <input type="submit" value="Filter" />
+        <input class="btn btn-primary btn-small" type="submit" value="Apply Filter" />
       </form>
 
-      <form action="/" method="get">
-        <input type="submit" value="Clear" />
-      </form>
-      
-      <div class="pull-right">
-      </div>
+      <% if filters.any? %>
+        <form action="<%= root_path %>" method="get">
+          <input class="btn btn-text btn-small" type="submit" value="Clear Filter" />
+        </form>
+      <% end %>
+
+      <a class='btn pull-right' href="<%= root_path %>new?key=<%= ERB::Util.html_escape filters['key'] %>">New Translation</a>
     </div>
 
     <div class="content">
-      <%= content %>
+      <%= yield %>
     </div>
   </body>
 </html>

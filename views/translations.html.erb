@@ -1,11 +1,11 @@
-<form id="updateform" action="/update" method="post">
+<form id="updateform" action="<%= root_path %>update" method="post">
   <% filters.each do |filter, value| %>
-    <input name="filters[<%= filter %>" type="hidden" value="<%= value %>"/>
+    <input name="filters[<%= filter %>]" type="hidden" value="<%= value %>"/>
   <% end %>
 
   <table class="keys" cellspacing="0">
     <% keys.each do |name, key| %>
-      <tr class="translation 
+      <tr class="translation
         <%= "incomplete" unless key.complete? %>
         <%= "empty" if key.empty? %>
         ">
@@ -30,15 +30,21 @@
             <% end %>
           </table>
         </td>
+        <td width="1%">
+          <a href="<%= root_path %>keys/<%= ERB::Util.html_escape name %>/destroy" class='btn btn-danger btn-small delete-button'>Delete</a>
+        </td>
       </tr>
     <% end %>
   </table>
 
-  <p class="pull-right"><input type="submit" id="save" value="Save" /></p>
+  <p class="pull-right">
+    <input class="btn btn-primary" type="submit" id="save" value="Save Translations" />
+  </p>
 </form>
-<script type="text/javascript">
-  $('.header .pull-right').html("<button id='save-on-top'>Save</button>")
-  $('#save-on-top').click(function() {
-    $('#updateform').submit();
-  });
-</script>
+
+<% if keys.empty? %>
+  <h3>
+    Could not find any keys for your search.
+    <a href="<%= root_path %>new?key=<%= filters['key'] %>">Create a new one</a>
+  </h3>
+<% end %>

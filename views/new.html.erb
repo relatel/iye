@@ -1,0 +1,28 @@
+<div class="new">
+  <form id="newform" action="<%= root_path %>create" method="post">
+    <h2>Add new translation:</h2>
+    <table>
+      <tr>
+        <td>File</td>
+        <td>
+          <select name='file_radix'>
+            <% app.store.file_radixes.each do |radix| %>
+              <option value="<%=radix%>"><%= radix.gsub(app.base_path + '/', '') %></option>
+            <% end %>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Key</td>
+        <td><input name='key' type="text" size="60" autofocus onfocus="this.value != '' && (this.value = this.value + '.')" value="<%= ERB::Util.html_escape(String(request.params['key']).gsub(/^\^/, '')) %>"/></td>
+      </tr>
+    <% app.store.locales.each do |locale| %>
+      <tr>
+        <td><%= locale %></td>
+        <td><textarea name='text_<%= locale %>' type="text" cols="60" rows="3"></textarea></td>
+      </tr>
+    <% end %>
+    </table>
+    <p><input type="submit" value="Submit"></p>
+  </form>
+</div>

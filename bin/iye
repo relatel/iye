@@ -1,6 +1,16 @@
 #!/usr/bin/env ruby
 
-require "i18n_yaml_editor"
+# Check that source_folder was given and that it exists
+source_folder = ARGV[0]
+unless source_folder && Dir.exists?(source_folder)
+  puts 'Usage: iye source_folder'
+  exit
+end
 
-iye = I18nYamlEditor::App.new(ARGV[0])
-iye.start
+require 'i18n_yaml_editor'
+require 'rack'
+
+iye_app = I18nYamlEditor::App.new(source_folder)
+$stdout.puts " * Loading translations from #{iye_app.full_path}"
+$stdout.puts " * Starting web editor at port 5050"
+Rack::Server.start :app => I18nYamlEditor::Web.app_stack(iye_app), :Port => 5050

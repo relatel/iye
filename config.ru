@@ -1,10 +1,7 @@
-$:.unshift("lib")
+require 'i18n_yaml_editor'
 
-require "i18n_yaml_editor/app"
-require "i18n_yaml_editor/web"
-
-app = I18nYamlEditor::App.new("example")
-app.load_translations
-app.store.create_missing_keys
-
-run I18nYamlEditor::Web
+# mounted on path as (rails)-integration example and for testing
+map('/dev/iye') {
+  iye_app = I18nYamlEditor::App.new('example')
+  run I18nYamlEditor::Web.app_stack(iye_app)
+}

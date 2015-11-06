@@ -1,12 +1,10 @@
-# encoding: utf-8
+require 'set'
+require 'pathname'
 
-require "set"
-require "pathname"
-
-require "i18n_yaml_editor/transformation"
-require "i18n_yaml_editor/category"
-require "i18n_yaml_editor/key"
-require "i18n_yaml_editor/translation"
+require 'i18n_yaml_editor/transformation'
+require 'i18n_yaml_editor/category'
+require 'i18n_yaml_editor/key'
+require 'i18n_yaml_editor/translation'
 
 module I18nYamlEditor
   class DuplicateTranslationError < StandardError; end
@@ -14,17 +12,18 @@ module I18nYamlEditor
   class Store
     include Transformation
 
-    attr_accessor :categories, :keys, :translations, :locales
+    attr_accessor :categories, :keys, :translations, :locales, :file_radixes
 
     def initialize
       @categories = {}
       @keys = {}
       @translations = {}
       @locales = Set.new
+      @file_radixes = Set.new
     end
 
-    def add_translation translation
-      if existing = self.translations[translation.name]
+    def add_translation(translation)
+      if (existing = self.translations[translation.name])
         message = "#{translation.name} detected in #{translation.file} and #{existing.file}"
         raise DuplicateTranslationError.new(message)
       end
@@ -32,6 +31,7 @@ module I18nYamlEditor
       self.translations[translation.name] = translation
 
       add_locale(translation.locale)
+      add_file_radix(translation.file, translation.locale) if translation.file
 
       key = (self.keys[translation.key] ||= Key.new(name: translation.key))
       key.add_translation(translation)
@@ -40,18 +40,23 @@ module I18nYamlEditor
       category.add_key(key)
     end
 
-    def add_key key
+    def add_key(key)
       self.keys[key.name] = key
     end
 
-    def add_locale locale
+    def add_locale(locale)
       self.locales.add(locale)
     end
 
-    def filter_keys options={}
+    def add_file_radix(path, locale)
+      file_radix = sub_locale_in_path(path, locale, LOCALE_PLACEHOLDER)
+      self.file_radixes.add(file_radix)
+    end
+
+    def filter_keys(options={})
       filters = []
       if options.has_key?(:key)
-        filters << lambda {|k| k.name =~ options[:key]} 
+        filters << lambda {|k| k.name =~ options[:key]}
       end
       if options.has_key?(:complete)
         filters << lambda {|k| k.complete? == options[:complete]}
@@ -76,14 +81,8 @@ module I18nYamlEditor
         missing_locales.each {|locale|
           translation = key.translations.first
 
-          # this just replaces the locale part of the file name. should
-          # be possible to do in a simpler way. gsub, baby.
-          path = Pathname.new(translation.file)
-          dirs, file = path.split
-          file = file.to_s.split(".")
-          file[-2] = locale
-          file = file.join(".")
-          path = dirs.join(file).to_s
+          # this just replaces the locale part of the file name
+          path = sub_locale_in_path(translation.file, translation.locale, locale)
 
           new_translation = Translation.new(name: "#{locale}.#{key.name}", file: path)
           add_translation(new_translation)
@@ -91,7 +90,7 @@ module I18nYamlEditor
       }
     end
 
-    def from_yaml yaml, file=nil
+    def from_yaml(yaml, file=nil)
       translations = flatten_hash(yaml)
       translations.each {|name, text|
         translation = Translation.new(name: name, text: text, file: file)

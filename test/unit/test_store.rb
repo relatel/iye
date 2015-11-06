@@ -102,6 +102,30 @@ class TestStore < Minitest::Test
     assert_nil translation.text
   end
 
+  def test_create_missing_translations_in_suffix_named_file
+    @store.add_translation Translation.new(name: "da.app_name", text: "Oversætter", file: "/tmp/something.foo.da.yml")
+    @store.add_locale("en")
+
+    @store.create_missing_keys
+
+    assert(translation = @store.translations["en.app_name"])
+    assert_equal "en.app_name", translation.name
+    assert_equal "/tmp/something.foo.en.yml", translation.file
+    assert_nil translation.text
+  end
+
+  def test_create_missing_translations_in_prefix_named_file
+    @store.add_translation Translation.new(name: "da.app_name", text: "Oversætter", file: "/tmp/da.something.foo.yml")
+    @store.add_locale("en")
+
+    @store.create_missing_keys
+
+    assert(translation = @store.translations["en.app_name"])
+    assert_equal "en.app_name", translation.name
+    assert_equal "/tmp/en.something.foo.yml", translation.file
+    assert_nil translation.text
+  end
+
   def test_from_yaml
     input = {
       da: {
