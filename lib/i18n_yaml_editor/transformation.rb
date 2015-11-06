@@ -35,5 +35,12 @@ module I18nYamlEditor
       result
     end
     module_function :nest_hash
+
+    def sub_locale_in_path(path, from_locale, to_locale)
+      path
+          .sub(/(\/|\.)#{from_locale}\.yml$/, "\\1#{to_locale}.yml")
+          .sub(/\/#{from_locale}([^\/]+)\.yml$/, "/#{to_locale}\\1.yml")
+    end
+    module_function :sub_locale_in_path
   end
 end

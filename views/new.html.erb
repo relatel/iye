@@ -7,7 +7,7 @@
         <td>
           <select name='file_radix'>
             <% app.store.file_radixes.each do |radix| %>
-              <option value="<%=radix%>"><%= "#{radix.gsub(app.base_path + '/', '')}[locale].yml" %></option>
+              <option value="<%=radix%>"><%= radix.gsub(app.base_path + '/', '') %></option>
             <% end %>
           </select>
         </td>

@@ -31,7 +31,7 @@ module I18nYamlEditor
       self.translations[translation.name] = translation
 
       add_locale(translation.locale)
-      add_file_radix(translation.file.sub("#{translation.locale}.yml", '')) if translation.file
+      add_file_radix(translation.file, translation.locale) if translation.file
 
       key = (self.keys[translation.key] ||= Key.new(name: translation.key))
       key.add_translation(translation)
@@ -48,7 +48,8 @@ module I18nYamlEditor
       self.locales.add(locale)
     end
 
-    def add_file_radix file_radix
+    def add_file_radix(path, locale)
+      file_radix = sub_locale_in_path(path, locale, LOCALE_PLACEHOLDER)
       self.file_radixes.add(file_radix)
     end
 
@@ -81,9 +82,7 @@ module I18nYamlEditor
           translation = key.translations.first
 
           # this just replaces the locale part of the file name
-          path = translation.file
-              .sub(/(\/|\.)#{translation.locale}\.yml$/, "\\1#{locale}.yml")
-              .sub(/\/#{translation.locale}([^\/]+)\.yml$/, "/#{locale}\\1.yml")
+          path = sub_locale_in_path(translation.file, translation.locale, locale)
 
           new_translation = Translation.new(name: "#{locale}.#{key.name}", file: path)
           add_translation(new_translation)

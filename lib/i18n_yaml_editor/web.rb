@@ -77,7 +77,7 @@ module I18nYamlEditor
 
       app.store.locales.each do |locale|
         name = "#{locale}.#{key}"
-        file = "#{file_radix}#{locale}.yml"
+        file = Transformation.sub_locale_in_path(file_radix, LOCALE_PLACEHOLDER, locale)
         text = request.params["text_#{locale}"]
         if app.store.translations[name]
           app.store.translations[name].text = text

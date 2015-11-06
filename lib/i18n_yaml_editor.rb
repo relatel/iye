@@ -1,6 +1,7 @@
 require 'pathname'
 
 module I18nYamlEditor
+  LOCALE_PLACEHOLDER = '%LOCALE%'
 
   ##
   # Root path of gem
