@@ -37,5 +37,25 @@ module I18nYamlEditor
       result
     end
     module_function :nest_hash
+
+    ##
+    # Replaces from_locale with to_locale in filename of path
+    # Supports filenames with locale prefix or suffix
+    #
+    # @param [String] from_locale
+    # @param [String] to_locale
+    # @param [String] path
+    #
+    # @example Get path for en locale path from existing dk locale path
+    #   Transformation.replace_locale_in_path('dk', 'en', '/tmp/dk.foo.yml') #=> "/tmp/en.foo.yml"
+    #   Transformation.replace_locale_in_path('dk', 'en', '/tmp/foo.dk.yml') #=> "/tmp/foo.en.yml"
+    #
+    # @return [String]
+    def replace_locale_in_path(from_locale, to_locale, path)
+      parts = File.basename(path).split('.')
+      parts[parts.index(from_locale)] = to_locale
+      File.join(File.dirname(path), parts.join('.'))
+    end
+    module_function :replace_locale_in_path
   end
 end
